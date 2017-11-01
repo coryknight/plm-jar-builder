@@ -1,0 +1,73 @@
+---
+external help file: JAR-help.xml
+Module Name: PLM-Jar-Builder
+online version: https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/Find-MatriculationNumber.md
+schema: 2.0.0
+---
+
+# Find-MatriculationNumber
+
+## SYNOPSIS
+Finds a matriculation number.
+
+## SYNTAX
+
+```
+Find-MatriculationNumber [-ExerciseRootPath] <String> [-All]
+```
+
+## DESCRIPTION
+The "Find-MatriculationNumber" cmdlet searches an exercise root path for files matching the jar file regular expression, then extracts and included matriculation numbers.
+
+## EXAMPLES
+
+### -------------------------- BEISPIEL 1 --------------------------
+```
+Find-MatriculationNumber -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
+```
+
+Find-MatriculationNumber -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -All
+
+## PARAMETERS
+
+### -ExerciseRootPath
+The path to the directory that contains the exercise folders.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -All
+Whether to return all findings.
+Without this switch only unique values are returned.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+## RELATED LINKS
+
+[https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/Find-MatriculationNumber.md](https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/Find-MatriculationNumber.md)
+

@@ -1,0 +1,3 @@
+@{
+    'dargmuesli/powershell-lib' = 'latest'
+}
