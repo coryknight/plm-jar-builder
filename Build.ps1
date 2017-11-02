@@ -7,7 +7,6 @@
 Set-StrictMode -Version Latest
 
 $ModuleName = "PLM-Jar-Builder"
-$ModuleDependencies = @("platyPS", "Pester")
 $PackageDependencies = @()
 
 Function Import-RootModule {
@@ -25,9 +24,12 @@ Function Install-Dependencies {
 
     Write-Host "Installing dependencies..." -ForegroundColor "Cyan"
 
-    If ($ModuleDependencies) {
-        Install-ModuleOnce -Name $ModuleDependencies -Force
+    If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
+        Install-Module -Name "PSDepend" -Scope "CurrentUser" -Force
     }
+
+    Invoke-PSDepend -Force
+
     If ($PackageDependencies) {
         Install-PackageOnce -Name $PackageDependencies -Destination "Packages" -Force
     }
@@ -96,20 +98,18 @@ Function New-Readme {
 
 Switch ($Task) {
     "Default" {
-        Import-RootModule -Only
         Install-Dependencies -Only
         Test-Pester -Only
-        Import-RootModule -Only
         Clear-BuildFolders -Only
+        Import-RootModule -Only
         New-Help -Only
         New-Readme -Only
         Break
     }
     "CI" {
-        Import-RootModule -Only
         Install-Dependencies -Only
-        Import-RootModule -Only
         Clear-BuildFolders -Only
+        Import-RootModule -Only
         New-Help -Only
         New-Readme -Only
         Break
