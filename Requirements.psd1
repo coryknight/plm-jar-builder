@@ -1,7 +1,6 @@
 @{
     'dargmuesli/powershell-lib' = @{
-        "Version" = "latest"
-        "Target"  = "CurrentUser"
+        "Version" = "master"
     }
     'Pester'                    = @{
         "Version" = "latest"
