@@ -265,10 +265,13 @@ Function New-PlmJarConfig {
         [ValidateNotNullOrEmpty()]
         [String] $PlmUsername,
 
+        [ValidateNotNullOrEmpty()]
         [SecureString] $PlmPasswordEncrypted,
 
+        [ValidateNotNullOrEmpty()]
         [String] $MatriculationNumber,
 
+        [ValidateNotNullOrEmpty()]
         [SecureString] $UserPasswordEncrypted,
 
         [ValidateNotNullOrEmpty()]
@@ -418,3 +421,5 @@ Function Set-PlmJarBuilderVariable {
 
     Set-Variable -Name $Name -Value $Value -Scope "Script"
 }
+
+Export-ModuleMember -Function *

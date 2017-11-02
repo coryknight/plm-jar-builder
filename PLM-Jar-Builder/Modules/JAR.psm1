@@ -261,3 +261,5 @@ Function New-PlmJar {
         Invoke-Expression "jar cvfM `"$JarFullName`"$FileString"
     }
 }
+
+Export-ModuleMember -Function *

@@ -421,3 +421,5 @@ Function Test-PlmUploadAvailable {
         Return $True
     }
 }
+
+Export-ModuleMember -Function *
