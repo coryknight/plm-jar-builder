@@ -28,7 +28,7 @@ Dieses Tool soll einem das Erstellen und somit die Abgabe der eigenen Übungslö
 │   │   └── UML 2i.pdf
 │   └── Aufgabenblatt 1.pdf
 ├── Aufgabenblatt 2\
-...
+:
 ```
 
 ## Modules
