@@ -279,7 +279,7 @@ Function New-PlmJarConfig {
         [String] $SolutionPath = "Lösung",
 
         [ValidateNotNullOrEmpty()]
-        [String] $ExerciseSheetRegex = "^Aufgabenblatt (\d{1,2}})$",
+        [String] $ExerciseSheetRegex = "^Aufgabenblatt (\d{1,2})$",
 
         [ValidateNotNullOrEmpty()]
         [String] $JarFileRegex = "^(\d+|.*)_(\d{2}).jar$"

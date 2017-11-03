@@ -176,7 +176,7 @@ Aliases:
 
 Required: False
 Position: 9
-Default value: ^Aufgabenblatt (\d{1,2}})$
+Default value: ^Aufgabenblatt (\d{1,2})$
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

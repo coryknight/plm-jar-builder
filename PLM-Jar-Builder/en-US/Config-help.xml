@@ -425,7 +425,7 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>^Aufgabenblatt (\d{1,2}})$</dev:defaultValue>
+          <dev:defaultValue>^Aufgabenblatt (\d{1,2})$</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>NoNote</maml:name>
@@ -559,7 +559,7 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>^Aufgabenblatt (\d{1,2}})$</dev:defaultValue>
+        <dev:defaultValue>^Aufgabenblatt (\d{1,2})$</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
         <maml:name>JarFileRegex</maml:name>
