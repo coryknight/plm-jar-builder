@@ -284,7 +284,7 @@ Function Publish-PlmJar {
     )
 
     # Get the exercise number from file name
-    $JarFileRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "JarFileRegex")
+    $JarFileRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "JarFileRegex").JarFileRegex
     $JarFileName = (Get-Item -Path $JarFilePath).Name
     $ExerciseNumber = $JarFileRegex.Match($JarFileName).Groups[2].Value
 

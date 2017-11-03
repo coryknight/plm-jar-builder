@@ -32,7 +32,7 @@ Function Find-MatriculationNumber {
     )
 
     # Search jar files matching a pattern and extract the matriculation numbers
-    $JarFileRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "JarFileRegex")
+    $JarFileRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "JarFileRegex").JarFileRegex
     $FoundMatriculationNumbers = Get-ChildItem -Path $ExerciseRootPath -Filter "*.jar" -File -Recurse |
         ForEach-Object {
         Return $JarFileRegex.Match($PSItem.Name).Groups[1].Value
@@ -89,7 +89,7 @@ Function Get-ExerciseFolder {
         [Switch] $Newest
     )
 
-    $ExerciseSheetRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseSheetRegex")
+    $ExerciseSheetRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseSheetRegex").ExerciseSheetRegex
 
     # Get all exercise directories
     $ExercisePath = Get-ChildItem -Path $ExerciseRootPath -Directory |
@@ -216,10 +216,10 @@ Function New-PlmJar {
     # Create the jar file(s)
     ForEach ($ExercisePath In $ExercisePaths) {
         $NoteFilePath = Get-PlmJarBuilderVariable -Name "NoteFilePath"
-        $ExerciseSheetRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseSheetRegex")
+        $ExerciseSheetRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseSheetRegex").ExerciseSheetRegex
         $ExerciseNumberFormat = [String] (Get-PlmJarBuilderVariable -Name "ExerciseNumberFormat")
         $ExerciseNumberZeroed = ([Int] $ExerciseSheetRegex.Match($ExercisePath.Name).Groups[1].Value).ToString($ExerciseNumberFormat)
-        $SolutionPath = Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath"
+        $SolutionPath = (Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath").SolutionPath
         $SolutionPathAbsolute = "$($ExercisePath.FullName)\$SolutionPath"
 
         If (-Not (Test-Path $SolutionPathAbsolute)) {

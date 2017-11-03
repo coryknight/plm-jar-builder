@@ -69,21 +69,21 @@ Describe "Get-PlmJarBuilderConfigProperty" {
             Return "ABC.Test"
         } -ModuleName "Config"
 
-        It "returns the property's value" {
+        It "returns the property" {
             # Parameters: "PropertyName"
-            $PlmJarConfigProperty = Get-PlmJarBuilderConfigProperty -PropertyName "Test"
-            $PlmJarConfigProperty | Should Be 1
+            $PlmJarConfigProperty = (Get-PlmJarBuilderConfigProperty -PropertyName "Test")
+            $PlmJarConfigProperty | ConvertTo-Json | Should Be (@{"Test" = 1} | ConvertTo-Json)
 
             # Parameters: "PropertyPath"
             $PlmJarConfigProperty = Get-PlmJarBuilderConfigProperty -PropertyPath "ABC.Test"
-            $PlmJarConfigProperty | Should Be 1
+            $PlmJarConfigProperty | ConvertTo-Json | Should Be (@{"Test" = 1} | ConvertTo-Json)
         }
     }
 
     Context "Property does not exists" {
         It "returns null" {
             # Parameters: "PropertyName"
-            Get-PlmJarBuilderConfigProperty -PropertyName "doesnotexist" | Should Be $Null
+            (Get-PlmJarBuilderConfigProperty -PropertyName "doesnotexist") | Should Be $Null
 
             # Parameters: "PropertyPath"
             Get-PlmJarBuilderConfigProperty -PropertyPath "does.not.exist" | Should Be $Null

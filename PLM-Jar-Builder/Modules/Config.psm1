@@ -55,7 +55,7 @@ Function Get-PlmJarBuilderConfig {
     The property path of the property whose value is to be returned.
 
     .EXAMPLE
-    Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath"
+    (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath
     Get-PlmJarBuilderConfigProperty -PropertyPath "Custom.ExerciseRootPath"
 
     .LINK

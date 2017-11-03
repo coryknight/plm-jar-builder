@@ -121,7 +121,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath"</dev:code>
+        <dev:code>(Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath</dev:code>
         <dev:remarks>
           <maml:para>Get-PlmJarBuilderConfigProperty -PropertyPath "Custom.ExerciseRootPath"</maml:para>
         </dev:remarks>

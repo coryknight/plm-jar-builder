@@ -30,7 +30,7 @@ Then, it gets the correct PLM-Jar-Builder configuration property path and return
 
 ### -------------------------- BEISPIEL 1 --------------------------
 ```
-Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath"
+(Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath
 ```
 
 Get-PlmJarBuilderConfigProperty -PropertyPath "Custom.ExerciseRootPath"
