@@ -56,17 +56,21 @@ Describe "Get-ExerciseFolder" {
     ) -ItemType "Directory" -Force
 
     Context "Exercise folders exist" {
-        It "returns an array of exercise folders" {
+        It "returns an array of all exercise folders" {
             # Parameters: "ExerciseRootPath"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath
             $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10", "Aufgabenblatt 2")
+        }
 
+        It "returns an array of selected exercise folders" {
             # Parameters: "ExerciseRootPath", "ExerciseNumber"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -ExerciseNumber @(1, 2)
-            $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 2")
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -ExerciseNumber @(1, 10)
+            $ExerciseFolder | Should Be @("Aufgabenblatt 1", "Aufgabenblatt 10")
+        }
 
+        It "returns an the newest exercise folder" {
             # Parameters: "ExerciseRootPath"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -ExerciseNumber @(1, 2) -Newest
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -Newest
             $ExerciseFolder | Should Be @("Aufgabenblatt 2")
         }
     }
@@ -78,11 +82,11 @@ Describe "Get-ExerciseFolder" {
             $ExerciseFolder | Should Be $Null
 
             # Parameters: "ExerciseRootPath", "ExerciseNumber"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath -ExerciseNumber @(1, 2)
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath -ExerciseNumber @(1, 10)
             $ExerciseFolder | Should Be $Null
 
             # Parameters: "ExerciseRootPath"
-            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath -ExerciseNumber @(1, 2) -Newest
+            $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $WrongExerciseRootPath -Newest
             $ExerciseFolder | Should Be $Null
         }
     }

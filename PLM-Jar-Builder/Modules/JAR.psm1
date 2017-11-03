@@ -70,22 +70,42 @@ Function Find-MatriculationNumber {
     Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
     Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -ExerciseNumbers @(1, 2)
     Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -Newest
+    Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -ListAvailable
 
     .LINK
     https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/Get-ExerciseFolder.md
 #>
 Function Get-ExerciseFolder {
+    [CmdletBinding(DefaultParametersetName = "All")]
+
     Param (
         [Parameter(
+            ParameterSetName = "All",
             Mandatory = $True,
             Position = 0
+        )]
+        [Parameter(
+            ParameterSetName = "ExerciseNumber"
+        )]
+        [Parameter(
+            ParameterSetName = "Newest"
         )]
         [ValidateScript({Test-Path -Path $PSItem})]
         [String] $ExerciseRootPath,
 
+        [Parameter(
+            ParameterSetName = "ExerciseNumber",
+            Mandatory = $True,
+            Position = 1
+        )]
         [ValidateNotNullOrEmpty()]
         [Int[]] $ExerciseNumber,
 
+        [Parameter(
+            ParameterSetName = "Newest",
+            Mandatory = $True,
+            Position = 1
+        )]
         [Switch] $Newest
     )
 

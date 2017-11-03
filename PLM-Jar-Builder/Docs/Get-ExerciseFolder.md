@@ -12,8 +12,19 @@ Gets exercise folders.
 
 ## SYNTAX
 
+### All (Default)
 ```
-Get-ExerciseFolder [-ExerciseRootPath] <String> [-ExerciseNumber <Int32[]>] [-Newest]
+Get-ExerciseFolder [-ExerciseRootPath] <String>
+```
+
+### Newest
+```
+Get-ExerciseFolder [[-ExerciseRootPath] <String>] [-Newest]
+```
+
+### ExerciseNumber
+```
+Get-ExerciseFolder [[-ExerciseRootPath] <String>] [-ExerciseNumber] <Int32[]>
 ```
 
 ## DESCRIPTION
@@ -28,6 +39,7 @@ Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semes
 
 Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -ExerciseNumbers @(1, 2)
 Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -Newest
+Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" -ListAvailable
 
 ## PARAMETERS
 
@@ -36,10 +48,22 @@ The path to the directory that contains the exercise folders.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: All
 Aliases: 
 
 Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+```yaml
+Type: String
+Parameter Sets: Newest, ExerciseNumber
+Aliases: 
+
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -51,11 +75,11 @@ The exercise numbers for which folders are to be found.
 
 ```yaml
 Type: Int32[]
-Parameter Sets: (All)
+Parameter Sets: ExerciseNumber
 Aliases: 
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -66,11 +90,11 @@ Whether to return only the exercise folder with the highest exercise number.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: Newest
 Aliases: 
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
