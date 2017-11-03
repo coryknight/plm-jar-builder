@@ -7,6 +7,7 @@
 Set-StrictMode -Version Latest
 
 $ModuleName = "PLM-Jar-Builder"
+$RequirementsPath = "${PSScriptRoot}\$ModuleName\Requirements.psd1"
 $PackageDependencies = @()
 
 Function Import-RootModule {
@@ -28,7 +29,7 @@ Function Install-Dependencies {
         Install-Module -Name "PSDepend" -Scope "CurrentUser" -Force
     }
 
-    Invoke-PSDepend -Force
+    Invoke-PSDepend -Path $RequirementsPath -Force
 
     If ($PackageDependencies) {
         Install-PackageOnce -Name $PackageDependencies -Destination "Packages" -Force
