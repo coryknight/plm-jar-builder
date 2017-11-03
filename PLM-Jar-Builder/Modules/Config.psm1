@@ -258,8 +258,9 @@ Function New-PlmJarConfig {
         [Object] $Include = @(),
 
         [ValidateNotNull()]
-        [Object] $Exclude = @("*.jar"),
+        [Object] $Exclude = @("*.class", "*.jar", "*.odt", "*.odg"),
 
+        [ValidateNotNullOrEmpty()]
         [Switch] $NoNote,
 
         [ValidateNotNullOrEmpty()]
