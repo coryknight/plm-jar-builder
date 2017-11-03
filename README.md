@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/ba8i29gqp62lw4rp/branch/master?svg=true)](https://ci.appveyor.com/project/Dargmuesli/plm-jar-builder/branch/master)
+
 # PLM-Jar-Builder
 Erstellt .jar-Dateien für EECS/PLM Java-Projekte an der Universität Kassel.
 
