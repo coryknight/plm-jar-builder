@@ -36,7 +36,7 @@
     https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/Get-PlmJar.md
 #>
 Function Get-PlmJar {
-    [CmdletBinding(DefaultParametersetName = "Download")]
+    [CmdletBinding(DefaultParametersetName = "Newest")]
 
     Param (
         [Parameter(Mandatory = $True)]
@@ -52,16 +52,27 @@ Function Get-PlmJar {
         [SecureString] $UserPassword,
 
         [Parameter(
-            ParameterSetName = "Download"
+            ParameterSetName = "Newest"
+        )]
+        [Parameter(
+            ParameterSetName = "ExerciseNumber"
+        )]
+        [Parameter(
+            ParameterSetName = "All"
         )]
         [ValidateScript({Test-Path -Path $PSItem})]
         [String] $DownloadPath = (Get-DownloadFolder),
 
         [Parameter(
-            ParameterSetName = "Download"
+            ParameterSetName = "ExerciseNumber"
         )]
         [ValidateNotNullOrEmpty()]
         [Int[]] $ExerciseNumber,
+
+        [Parameter(
+            ParameterSetName = "All"
+        )]
+        [Switch] $All,
 
         [Parameter(
             ParameterSetName = "ListAvailable",
@@ -85,17 +96,21 @@ Function Get-PlmJar {
         }
     }
 
-    # Filter exercise numbers
-    If ($ExerciseNumber) {
-        $DownloadLinks = $DownloadLinks |
-            Where-Object {
-            $ExerciseNumber -Contains $PSItem.PSObject.Properties.Name
-        }
-    }
+    Switch ($PSCmdlet.ParameterSetName) {
+        "ExerciseNumber" {
 
-    # Return download options if desired
-    If ($ListAvailable) {
-        Return $DownloadLinks
+            # Filter exercise numbers
+            $DownloadLinks = $DownloadLinks |
+                Where-Object {
+                $ExerciseNumber -Contains $PSItem.PSObject.Properties.Name
+            }
+            Break
+        }
+        "ListAvailable" {
+
+            # Return download options if desired
+            Return $DownloadLinks
+        }
     }
 
     $PlmUri = Get-PlmJarBuilderVariable -Name "PlmUri"
@@ -106,12 +121,17 @@ Function Get-PlmJar {
     } Else {
         $UserCredential = New-Object PSCredential($UserUsername, $UserPassword)
 
-        If ($ExerciseNumber) {
-            ForEach ($DownloadLink In $DownloadLinks) {
-                Get-FileFromWeb -Url "$PlmUri$($DownloadLink.PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
+        Switch ($PSCmdlet.ParameterSetName) {
+            "Newest" {
+                Get-FileFromWeb -Url "$PlmUri$($DownloadLinks[$DownloadLinks.Length - 1].PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
             }
-        } Else {
-            Get-FileFromWeb -Url "$PlmUri$($DownloadLinks[$DownloadLinks.Length - 1].PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
+            (@("ExerciseNumber", "All") -Contains $PSItem) {
+                ForEach ($DownloadLink In $DownloadLinks) {
+                    Get-FileFromWeb -Url "$PlmUri$($DownloadLink.PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
+                }
+
+                Break
+            }
         }
     }
 }

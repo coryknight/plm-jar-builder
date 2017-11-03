@@ -12,7 +12,19 @@ Downloads a PLM-Jar from the PLM webservice.
 
 ## SYNTAX
 
-### Download (Default)
+### Newest (Default)
+```
+Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString>
+ [-DownloadPath <String>]
+```
+
+### All
+```
+Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString>
+ [-DownloadPath <String>] [-All]
+```
+
+### ExerciseNumber
 ```
 Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString>
  [-DownloadPath <String>] [-ExerciseNumber <Int32[]>]
@@ -92,7 +104,7 @@ The path to which the jar files are to be downloaded to.
 
 ```yaml
 Type: String
-Parameter Sets: Download
+Parameter Sets: Newest, All, ExerciseNumber
 Aliases: 
 
 Required: False
@@ -107,12 +119,27 @@ The exercise numbers for which jar files are to be downloaded.
 
 ```yaml
 Type: Int32[]
-Parameter Sets: Download
+Parameter Sets: ExerciseNumber
 Aliases: 
 
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -All
+{{Fill All Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: All
+Aliases: 
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
