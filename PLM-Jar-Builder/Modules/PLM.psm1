@@ -127,8 +127,9 @@ Function Get-PlmJar {
         Switch ($PSCmdlet.ParameterSetName) {
             "Newest" {
                 Get-FileFromWeb -Url "$PlmUri$($DownloadLinks[$DownloadLinks.Length - 1].PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
+                Break
             }
-            (@("ExerciseNumber", "All") -Contains $PSItem) {
+            {@("ExerciseNumber", "All") -Contains $PSItem} {
                 ForEach ($DownloadLink In $DownloadLinks) {
                     Get-FileFromWeb -Url "$PlmUri$($DownloadLink.PSObject.Properties.Value)" -LocalPath $DownloadPath -Credential $UserCredential
                 }
