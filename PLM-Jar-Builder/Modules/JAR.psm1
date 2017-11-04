@@ -3,7 +3,7 @@
     Finds a matriculation number.
 
     .DESCRIPTION
-    The "Find-MatriculationNumber" cmdlet searches an exercise root path for files matching the jar file regular expression, then extracts and included matriculation numbers.
+    The "Find-MatriculationNumber" cmdlet searches an exercise root path for files matching the jar file regular expression, then extracts included matriculation numbers.
 
     .PARAMETER ExerciseRootPath
     The path to the directory that contains the exercise folders.
