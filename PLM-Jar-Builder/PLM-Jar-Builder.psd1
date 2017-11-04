@@ -24,6 +24,7 @@
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
     NestedModules     = @(
+        'Modules\Assistant.psm1',
         'Modules\Config.psm1',
         'Modules\JAR.psm1',
         'Modules\PLM.psm1'

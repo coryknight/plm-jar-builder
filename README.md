@@ -43,6 +43,8 @@ Der Wert für das verschlüsselte Passwort ist accountabhängig und kann über f
 Dass Apostrophe das Passwort einschließen ist notwendig, um gewisse Sonderzeichen im Passwort zu ermöglichen.
 
 ## Modules
+- **Assistant**
+  - [Invoke-PlmJarBuilder](PLM-Jar-Builder/Docs/Invoke-PlmJarBuilder.md)
 - **Config**
   - [Get-PlmJarBuilderConfig](PLM-Jar-Builder/Docs/Get-PlmJarBuilderConfig.md)
   - [Get-PlmJarBuilderConfigProperty](PLM-Jar-Builder/Docs/Get-PlmJarBuilderConfigProperty.md)
