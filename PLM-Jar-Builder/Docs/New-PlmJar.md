@@ -14,26 +14,22 @@ Create new PLM-Jar archives.
 
 ### Default (Default)
 ```
-New-PlmJar -ExerciseRootPath <String> [-NoNote] [-Include <String[]>] [-Exclude <String[]>]
- [-MatriculationNumber <Int32>]
+New-PlmJar -ExerciseRootPath <String> [-NoNote] [-Exclude <String[]>] [-MatriculationNumber <Int32>]
 ```
 
 ### ExerciseNumber
 ```
-New-PlmJar -ExerciseRootPath <String> -ExerciseNumber <Int32[]> [-NoNote] [-Include <String[]>]
- [-Exclude <String[]>] [-MatriculationNumber <Int32>]
+New-PlmJar -ExerciseRootPath <String> -ExerciseNumber <Int32[]> [-NoNote] [-Exclude <String[]>]
+ [-MatriculationNumber <Int32>]
 ```
 
 ### All
 ```
-New-PlmJar -ExerciseRootPath <String> [-All] [-NoNote] [-Include <String[]>] [-Exclude <String[]>]
- [-MatriculationNumber <Int32>]
+New-PlmJar -ExerciseRootPath <String> [-All] [-NoNote] [-Exclude <String[]>] [-MatriculationNumber <Int32>]
 ```
 
 ## DESCRIPTION
-The "New-PlmJar" cmdlet checks for overlapping items in the $Include and $Exclude parameters.
-If none are found, the exercise folder paths are retrieved.
-For each exercise folder a jar file, containing the folder's contents, is created in that folder.
+The "New-PlmJar" cmdlet retrieves exercise folder paths and creates a jar file, containing the folder's contents, in each folder.
 
 ## EXAMPLES
 
@@ -101,21 +97,6 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Include
-A list of file extensions to include when packing the jar.
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases: 
-
-Required: False
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

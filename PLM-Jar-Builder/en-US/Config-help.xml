@@ -320,18 +320,6 @@
           <dev:defaultValue>"$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
-          <maml:name>ExerciseSheetRegex</maml:name>
-          <maml:Description>
-            <maml:para>The regular expression that is used when looking for exercise folders.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>^Aufgabenblatt (\d{1,2})$</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
           <maml:name>JarFileRegex</maml:name>
           <maml:Description>
             <maml:para>The regular expression that is used when looking for jar files.</maml:para>
@@ -356,18 +344,6 @@
           <dev:defaultValue>(Get-DownloadFolder)</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
-          <maml:name>Include</maml:name>
-          <maml:Description>
-            <maml:para>A list of file extensions to include when packing the jar.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
-          <dev:type>
-            <maml:name>Object</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>@()</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>Exclude</maml:name>
           <maml:Description>
             <maml:para>A list of file extensions to exclude when packing the jar.</maml:para>
@@ -379,7 +355,7 @@
           </dev:type>
           <dev:defaultValue>@("*.class", "*.jar", "*.odt", "*.odg")</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>PlmUsername</maml:name>
           <maml:Description>
             <maml:para>The username for PLM's basic authentication.</maml:para>
@@ -391,7 +367,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>PlmPasswordEncrypted</maml:name>
           <maml:Description>
             <maml:para>The password for PLM's basic authentication.</maml:para>
@@ -403,7 +379,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>MatriculationNumber</maml:name>
           <maml:Description>
             <maml:para>The user's matriculation number / PLM username.</maml:para>
@@ -415,7 +391,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>UserPasswordEncrypted</maml:name>
           <maml:Description>
             <maml:para>The user's PLM password.</maml:para>
@@ -427,7 +403,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
           <maml:name>SolutionPath</maml:name>
           <maml:Description>
             <maml:para>The relative path from an exercise folder to its solution folder.</maml:para>
@@ -438,6 +414,18 @@
             <maml:uri />
           </dev:type>
           <dev:defaultValue>Lösung</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+          <maml:name>ExerciseSheetRegex</maml:name>
+          <maml:Description>
+            <maml:para>The regular expression that is used when looking for exercise folders.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>^Aufgabenblatt (\d{1,2})$</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>NoNote</maml:name>
@@ -478,18 +466,6 @@
         <dev:defaultValue>(Get-DownloadFolder)</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
-        <maml:name>Include</maml:name>
-        <maml:Description>
-          <maml:para>A list of file extensions to include when packing the jar.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
-        <dev:type>
-          <maml:name>Object</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>@()</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Exclude</maml:name>
         <maml:Description>
           <maml:para>A list of file extensions to exclude when packing the jar.</maml:para>
@@ -513,7 +489,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>PlmUsername</maml:name>
         <maml:Description>
           <maml:para>The username for PLM's basic authentication.</maml:para>
@@ -525,7 +501,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>PlmPasswordEncrypted</maml:name>
         <maml:Description>
           <maml:para>The password for PLM's basic authentication.</maml:para>
@@ -537,7 +513,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>MatriculationNumber</maml:name>
         <maml:Description>
           <maml:para>The user's matriculation number / PLM username.</maml:para>
@@ -549,7 +525,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>UserPasswordEncrypted</maml:name>
         <maml:Description>
           <maml:para>The user's PLM password.</maml:para>
@@ -561,7 +537,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
         <maml:name>SolutionPath</maml:name>
         <maml:Description>
           <maml:para>The relative path from an exercise folder to its solution folder.</maml:para>
@@ -573,7 +549,7 @@
         </dev:type>
         <dev:defaultValue>Lösung</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>ExerciseSheetRegex</maml:name>
         <maml:Description>
           <maml:para>The regular expression that is used when looking for exercise folders.</maml:para>
@@ -585,7 +561,7 @@
         </dev:type>
         <dev:defaultValue>^Aufgabenblatt (\d{1,2})$</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
         <maml:name>JarFileRegex</maml:name>
         <maml:Description>
           <maml:para>The regular expression that is used when looking for jar files.</maml:para>

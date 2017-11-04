@@ -13,10 +13,10 @@ Creates a new PLM-Jar-Builder config.
 ## SYNTAX
 
 ```
-New-PlmJarConfig [[-ExerciseRootPath] <String>] [[-DownloadPath] <String>] [[-Include] <Object>]
- [[-Exclude] <Object>] [-NoNote] [[-PlmUsername] <String>] [[-PlmPasswordEncrypted] <SecureString>]
- [[-MatriculationNumber] <String>] [[-UserPasswordEncrypted] <SecureString>] [[-SolutionPath] <String>]
- [[-ExerciseSheetRegex] <String>] [[-JarFileRegex] <String>]
+New-PlmJarConfig [[-ExerciseRootPath] <String>] [[-DownloadPath] <String>] [[-Exclude] <Object>] [-NoNote]
+ [[-PlmUsername] <String>] [[-PlmPasswordEncrypted] <SecureString>] [[-MatriculationNumber] <String>]
+ [[-UserPasswordEncrypted] <SecureString>] [[-SolutionPath] <String>] [[-ExerciseSheetRegex] <String>]
+ [[-JarFileRegex] <String>]
 ```
 
 ## DESCRIPTION
@@ -61,21 +61,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Include
-A list of file extensions to include when packing the jar.
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases: 
-
-Required: False
-Position: 3
-Default value: @()
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Exclude
 A list of file extensions to exclude when packing the jar.
 
@@ -85,7 +70,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 4
+Position: 3
 Default value: @("*.class", "*.jar", "*.odt", "*.odg")
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -115,7 +100,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 5
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -130,7 +115,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 6
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -145,7 +130,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 7
+Position: 6
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -160,7 +145,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 8
+Position: 7
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -175,7 +160,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 9
+Position: 8
 Default value: Lösung
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -190,7 +175,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 10
+Position: 9
 Default value: ^Aufgabenblatt (\d{1,2})$
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -205,7 +190,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 11
+Position: 10
 Default value: ^(\d+|.*)_(\d{2}).jar$
 Accept pipeline input: False
 Accept wildcard characters: False

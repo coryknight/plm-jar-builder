@@ -143,7 +143,6 @@ Function Get-PlmJarBuilderConfigPropertyPath {
     $PropertyDictionary = @{
         "ExerciseRootPath"    = "Custom.ExerciseRootPath"
         "DownloadPath"        = "Custom.DownloadPath"
-        "Include"             = "Custom.Include"
         "Exclude"             = "Custom.Exclude"
         "NoNote"              = "Custom.NoNote"
         "PlmUsername"         = "Custom.PLM.Username"
@@ -217,9 +216,6 @@ Function Get-PlmJarBuilderVariable {
     .PARAMETER DownloadPath
     The path to download jar files to.
 
-    .PARAMETER Include
-    A list of file extensions to include when packing the jar.
-
     .PARAMETER Exclude
     A list of file extensions to exclude when packing the jar.
 
@@ -262,9 +258,6 @@ Function New-PlmJarConfig {
         [String] $DownloadPath = (Get-DownloadFolder),
 
         [ValidateNotNull()]
-        [Object] $Include = @(),
-
-        [ValidateNotNull()]
         [Object] $Exclude = @("*.class", "*.jar", "*.odt", "*.odg"),
 
         [ValidateNotNullOrEmpty()]
@@ -298,7 +291,6 @@ Function New-PlmJarConfig {
             "Custom"  = [Ordered] @{
                 "ExerciseRootPath" = $ExerciseRootPath
                 "DownloadPath"     = $DownloadPath
-                "Include"          = $Include
                 "Exclude"          = $Exclude
                 "NoNote"           = $NoNote.IsPresent
                 "PLM"              = [Ordered] @{

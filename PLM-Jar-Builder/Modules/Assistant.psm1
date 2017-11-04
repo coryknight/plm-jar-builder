@@ -69,8 +69,6 @@ Function Invoke-PlmJarBuilder {
     Write-Host "ExerciseRootPath = $ExerciseRootPath" -ForegroundColor "Cyan"
     $DownloadPath = (Get-PlmJarBuilderConfigProperty -PropertyName "DownloadPath").DownloadPath.TrimEnd("\")
     Write-Host "DownloadPath = $DownloadPath" -ForegroundColor "Cyan"
-    $Include = (Get-PlmJarBuilderConfigProperty -PropertyName "Include").Include
-    Write-Host "Include = $Include" -ForegroundColor "Cyan"
     $Exclude = (Get-PlmJarBuilderConfigProperty -PropertyName "Exclude").Exclude
     Write-Host "Exclude = $Exclude" -ForegroundColor "Cyan"
     $NoNote = (Get-PlmJarBuilderConfigProperty -PropertyName "NoNote").NoNote
@@ -120,21 +118,6 @@ Choice
                         $NoNote = $True
                     } Else {
                         $NoNote = $False
-                    }
-                }
-
-                If ($Include -Eq $Null) {
-                    If (Read-PromptYesNo -Caption "Inclusions" -Message "Do you want to include certain file types?") {
-                        $Include = [String[]](Read-ValidInput `
-                                -Prompt "Comma separated file inclusions" `
-                                -ValidityCheck @(
-                                {$args[0] -Match "^(\*\.\w+, )*\*\.\w+$"}
-                            ) `
-                                -ErrorMessage @(
-                                "Invalid format!"
-                            )).Split(",").Trim()
-                    } Else {
-                        $Include = @()
                     }
                 }
 
@@ -216,7 +199,6 @@ Choice
                         New-PlmJar `
                             -ExerciseRootPath $ExerciseRootPath `
                             -NoNote:$NoNote `
-                            -Include:$Include `
                             -Exclude:$Exclude `
                             -MatriculationNumber:$MatriculationNumber
                         Break
@@ -234,7 +216,6 @@ Choice
                         New-PlmJar `
                             -ExerciseRootPath $ExerciseRootPath `
                             -NoNote:$NoNote `
-                            -Include:$Include `
                             -Exclude:$Exclude `
                             -MatriculationNumber:$MatriculationNumber `
                             -ExerciseNumber $ExerciseNumber
@@ -244,7 +225,6 @@ Choice
                         New-PlmJar `
                             -ExerciseRootPath $ExerciseRootPath `
                             -NoNote:$NoNote `
-                            -Include:$Include `
                             -Exclude:$Exclude `
                             -MatriculationNumber:$MatriculationNumber `
                             -All

@@ -142,9 +142,7 @@ Function Get-ExerciseFolder {
     Create new PLM-Jar archives.
 
     .DESCRIPTION
-    The "New-PlmJar" cmdlet checks for overlapping items in the $Include and $Exclude parameters.
-    If none are found, the exercise folder paths are retrieved.
-    For each exercise folder a jar file, containing the folder's contents, is created in that folder.
+    The "New-PlmJar" cmdlet retrieves exercise folder paths and creates a jar file, containing the folder's contents, in each folder.
 
     .PARAMETER ExerciseRootPath
     The path to the directory that contains the exercise folders.
@@ -158,9 +156,6 @@ Function Get-ExerciseFolder {
 
     .PARAMETER NoNote
     Whether to exclude a note regarding this tool in the jar.
-
-    .PARAMETER Include
-    A list of file extensions to include when packing the jar.
 
     .PARAMETER Exclude
     A list of file extensions to exclude when packing the jar.
@@ -198,22 +193,11 @@ Function New-PlmJar {
         [Switch] $NoNote,
 
         [ValidateNotNull()]
-        [String[]] $Include,
-
-        [ValidateNotNull()]
         [String[]] $Exclude = @("*.jar"),
 
         [ValidateNotNullOrEmpty()]
         [Int] $MatriculationNumber
     )
-
-    # Ensure $Include and $Exclude do not overlap
-    ForEach ($Element In $Include) {
-        If ($Exclude -Contains $Element) {
-            # Include and Exclude parameters overlap
-            Throw "Include und Exclude parameters overlap at `"$Element`"!"
-        }
-    }
 
     # Get the exercise folders in scope
     $ExercisePaths = $Null
@@ -247,7 +231,7 @@ Function New-PlmJar {
             Throw "Solution path does not exist!"
         }
 
-        $Files = @(Get-ChildItem -Path "$SolutionPathAbsolute" -Include:$Include -Exclude:$Exclude -Recurse -File)
+        $Files = @(Get-ChildItem -Path "$SolutionPathAbsolute" -Exclude:$Exclude -Recurse -File)
 
         # Add an optional note
         If (-Not $NoNote) {

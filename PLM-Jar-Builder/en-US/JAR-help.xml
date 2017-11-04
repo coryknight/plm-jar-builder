@@ -10,7 +10,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The "Find-MatriculationNumber" cmdlet searches an exercise root path for files matching the jar file regular expression, then extracts and included matriculation numbers.</maml:para>
+      <maml:para>The "Find-MatriculationNumber" cmdlet searches an exercise root path for files matching the jar file regular expression, then extracts included matriculation numbers.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -242,7 +242,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The "New-PlmJar" cmdlet checks for overlapping items in the $Include and $Exclude parameters. If none are found, the exercise folder paths are retrieved. For each exercise folder a jar file, containing the folder's contents, is created in that folder.</maml:para>
+      <maml:para>The "New-PlmJar" cmdlet retrieves exercise folder paths and creates a jar file, containing the folder's contents, in each folder.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -281,18 +281,6 @@
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Include</maml:name>
-          <maml:Description>
-            <maml:para>A list of file extensions to include when packing the jar.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Exclude</maml:name>
@@ -354,18 +342,6 @@
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Include</maml:name>
-          <maml:Description>
-            <maml:para>A list of file extensions to include when packing the jar.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Exclude</maml:name>
@@ -441,18 +417,6 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Include</maml:name>
-        <maml:Description>
-          <maml:para>A list of file extensions to include when packing the jar.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Exclude</maml:name>
