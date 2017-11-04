@@ -130,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -All
-{{Fill All Description}}
+Whether to download all available jar files.
 
 ```yaml
 Type: SwitchParameter

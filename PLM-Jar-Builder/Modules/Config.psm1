@@ -213,6 +213,9 @@ Function Get-PlmJarBuilderVariable {
     .PARAMETER ExerciseRootPath
     The path to the directory that contains the exercise folders.
 
+    .PARAMETER DownloadPath
+    The path to download jar files to.
+
     .PARAMETER Include
     A list of file extensions to include when packing the jar.
 
@@ -253,6 +256,9 @@ Function New-PlmJarConfig {
     Param (
         [ValidateScript({Test-Path -Path $PSItem})]
         [String] $ExerciseRootPath = "$([Environment]::GetFolderPath("MyDocuments"))\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen",
+
+        [ValidateScript({Test-Path -Path $PSItem})]
+        [String] $DownloadPath = (Get-DownloadFolder),
 
         [ValidateNotNull()]
         [Object] $Include = @(),

@@ -47,7 +47,7 @@ Accept wildcard characters: False
 ```
 
 ### -PlmPassword
-{{Fill PlmPassword Description}}
+The password for PLM's basic authentication.
 
 ```yaml
 Type: SecureString

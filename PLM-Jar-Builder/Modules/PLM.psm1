@@ -21,6 +21,9 @@
     .PARAMETER ExerciseNumber
     The exercise numbers for which jar files are to be downloaded.
 
+    .PARAMETER All
+    Whether to download all available jar files.
+
     .PARAMETER ListAvailable
     Whether to list all available download options.
 
@@ -184,7 +187,7 @@ Function Get-PlmUri {
     .PARAMETER PlmUsername
     The username for PLM's basic authentication.
 
-    .PARAMETER PlmPasswordEncrypted
+    .PARAMETER PlmPassword
     The password for PLM's basic authentication.
 
     .PARAMETER UserUsername

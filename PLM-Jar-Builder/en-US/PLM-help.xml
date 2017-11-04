@@ -117,7 +117,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>All</maml:name>
           <maml:Description>
-            <maml:para>{{Fill All Description}}</maml:para>
+            <maml:para>Whether to download all available jar files.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -304,7 +304,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>All</maml:name>
         <maml:Description>
-          <maml:para>{{Fill All Description}}</maml:para>
+          <maml:para>Whether to download all available jar files.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -446,7 +446,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>PlmPassword</maml:name>
           <maml:Description>
-            <maml:para>{{Fill PlmPassword Description}}</maml:para>
+            <maml:para>The password for PLM's basic authentication.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -497,7 +497,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>PlmPassword</maml:name>
         <maml:Description>
-          <maml:para>{{Fill PlmPassword Description}}</maml:para>
+          <maml:para>The password for PLM's basic authentication.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
