@@ -142,13 +142,14 @@ Function Get-PlmJarBuilderConfigPropertyPath {
 
     $PropertyDictionary = @{
         "ExerciseRootPath"    = "Custom.ExerciseRootPath"
+        "DownloadPath"        = "Custom.DownloadPath"
         "Include"             = "Custom.Include"
         "Exclude"             = "Custom.Exclude"
         "NoNote"              = "Custom.NoNote"
         "PlmUsername"         = "Custom.PLM.Username"
-        "PlmUserPassword"     = "Custom.PLM.EncryptedPassword"
+        "PlmPassword"         = "Custom.PLM.EncryptedPassword"
         "MatriculationNumber" = "Custom.User.Matriculationnumber"
-        "UserPassword"        = "Custom.User.EncryptedUserPassword"
+        "UserPassword"        = "Custom.User.EncryptedPassword"
         "SolutionPath"        = "Default.SolutionPath"
         "ExerciseSheetRegex"  = "Default.ExerciseSheetRegex"
         "JarFileRegex"        = "Default.JarFileRegex"
@@ -296,6 +297,7 @@ Function New-PlmJarConfig {
     $Json = ConvertTo-Json ([Ordered] @{
             "Custom"  = [Ordered] @{
                 "ExerciseRootPath" = $ExerciseRootPath
+                "DownloadPath"     = $DownloadPath
                 "Include"          = $Include
                 "Exclude"          = $Exclude
                 "NoNote"           = $NoNote.IsPresent
