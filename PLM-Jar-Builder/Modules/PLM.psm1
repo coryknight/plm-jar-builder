@@ -335,7 +335,7 @@ Content-Disposition: form-data; name="MAX_FILE_SIZE"
 
 5000000
 --$Boundary
-Content-Disposition: form-data; name="exercise_02"; filename="$($EncodingIso.GetString($JarBytes))"
+Content-Disposition: form-data; name="exercise_$ExerciseNumber"; filename="$($EncodingIso.GetString($JarBytes))"
 Content-Type: $($ContentType)
 
 $($EncodingIso.GetString($FileBin))
