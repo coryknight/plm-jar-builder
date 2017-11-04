@@ -22,11 +22,15 @@ Function Invoke-PlmJarBuilder {
     # Check online status and install dependencies if connected to the internet
     If (-Not (Test-Connection -ComputerName "google.com" -Count 1 -Quiet)) {
         $Offline = $True
-        Write-Host "Internet connection test failed. Operating in offline mode..." -ForegroundColor "Cyan"
+
+        # Internet connection test failed. Operating in offline mode...
+        Write-Host "Internet-Verbindungstest fehlgeschlagen. Arbeite im Offline-Modus..." -ForegroundColor "Cyan"
     }
 
     If (-Not $Offline) {
-        Write-Host "Checking for updates..." -ForegroundColor "Cyan"
+
+        #Checking for updates
+        Write-Host "Suche nach Updates..." -ForegroundColor "Cyan"
 
         $ModuleAuthorUsername = Get-PlmJarBuilderVariable -Name "ModuleAuthorUsername"
         $ModuleName = Get-PlmJarBuilderVariable -Name "ModuleName"
@@ -40,12 +44,15 @@ Function Invoke-PlmJarBuilder {
         }
 
         If ($LatestRelease -And $LatestRelease.CompareTo($ExistingVersion)) {
-            If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "A new version of $ModuleName was found. Currently installed is v$ExistingVersion. Do you want to automatically update to the new version now?" -DefaultChoice 0) {
+
+            # A new version of $ModuleName was found. Currently installed is v$ExistingVersion. Do you want to automatically update to the new version now?
+            If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "Eine neue Version vom $ModuleName wurde gefunden. Aktuell installiert ist v$ExistingVersion. Soll jetzt automatisch zur neuesten Version geupdatet werden?" -DefaultChoice 0) {
                 Invoke-PSDepend @{"$ModuleAuthorUsername/$ModuleName" = ""} -Install -Import -Force
             }
         }
 
-        Write-Host "Installing dependencies..." -ForegroundColor "Cyan"
+        # Installing dependencies
+        Write-Host "Installiere Abhängigkeiten..." -ForegroundColor "Cyan"
 
         If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
             Install-Module -Name "PSDepend" -Scope CurrentUser
@@ -58,12 +65,15 @@ Function Invoke-PlmJarBuilder {
 
     # Create config file if it does not exist already
     If (-Not (Test-Path -Path $ConfigPath)) {
-        Write-Host "Creating a config file..." -ForegroundColor "Cyan"
+
+        # Creating a config file
+        Write-Host "Erstelle eine Konfigurationsdatei..." -ForegroundColor "Cyan"
         New-PlmJarConfig
     }
 
     # Read settings file
-    Write-Host "Loaded configuration:" -ForegroundColor "Yellow"
+    # Loaded configuration
+    Write-Host "Geladene Konfiguration:" -ForegroundColor "Yellow"
 
     $ExerciseRootPath = (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath.TrimEnd("\")
     Write-Host "ExerciseRootPath = $ExerciseRootPath" -ForegroundColor "Cyan"
@@ -83,38 +93,55 @@ Function Invoke-PlmJarBuilder {
     Write-Host "UserPassword = $UserPassword" -ForegroundColor "Cyan"
 
     :mainloop While ($True) {
+        # What do you want to do?
+
+        # 1) Create JAR files
+        # 2) Upload JAR to PLM
+        # 3) Download JAR from PLM
+        # 4) Exit (or press CTRL+C)
+
+        # Choice
+        # ---
+        # Invalid choice!
         $Answer = Read-ValidInput `
             -Prompt @"
 
-What do you want to do?
+Was möchtest du tun?
 
-1) Create JAR files
-2) Upload JAR to PLM
-3) Download JAR from PLM
-4) Exit (or press CTRL+C)
+1) .jar-Dateien erstellen
+2) .jar-Dateien zu PLM hochladen
+3) .jar-Dateien von PLM herunterladen
+4) Beenden (oder jederzeit CTRL+C drücken)
 
-Choice
+Wahl
 "@ `
             -ValidityCheck {@(1, 2, 3, 4) -Contains $args[0]} `
-            -ErrorMessage "Invalid choice!"
+            -ErrorMessage "Ungültige Wahl!"
 
         Switch ($Answer) {
             1 {
                 If (($ExerciseRootPath -Eq $Null) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
+
+                    # The path in which the exercise folders are placed
+                    # ---
+                    # Invalid path!
+                    # The given folder does not contain exercise folders!
                     $ExerciseRootPath = Read-ValidInput `
-                        -Prompt "The path in which the exercise folders are placed" `
+                        -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
                         -ValidityCheck @(
                         {Test-Path $args[0]}
                         {Get-ExerciseFolder -ExerciseRootPath $args[0]}
                     ) `
                         -ErrorMessage @(
-                        "Invalid choice!"
-                        "The given folder does not contain exercise folders!"
+                        "Ungültiger Pfad!"
+                        "Der angegebene Ordner enthält keine Aufgaben-Order!"
                     )
                 }
 
                 If ($NoNote -Eq $Null) {
-                    If (Read-PromptYesNo -Caption "Note Exclusion" -Message "Do you want prevent the addition of a disclaimer to your jar file?") {
+                    # Note Exclusion
+                    # Do you want prevent the addition of a disclaimer to your jar file?
+                    If (Read-PromptYesNo -Caption "Notiz-Ausschluss" -Message "Soll das Packen des Disclaimers in die .jar-Datei verhindert werden?") {
                         $NoNote = $True
                     } Else {
                         $NoNote = $False
@@ -122,14 +149,20 @@ Choice
                 }
 
                 If ($Exclude -Eq $Null) {
-                    If (Read-PromptYesNo -Caption "Exclusion" -Message "Do you want to exclude certain file types?") {
+
+                    # Exclusion
+                    # Do you want to exclude certain file types?
+                    If (Read-PromptYesNo -Caption "Ausschluss" -Message "Sollen bestimmte Dateitypen vom Packen in die .jar-Datei ausgeschlossen werden?") {
+                        # Comma separated file exclusions
+                        # ---
+                        # Invalid format! (Not `"*.abc, *.xyz`")
                         $Exclude = [String[]](Read-ValidInput `
-                                -Prompt "Comma separated file exclusions" `
+                                -Prompt "Kommagetrennte Dateitypen" `
                                 -ValidityCheck @(
                                 {$args[0] -Match "^(\*\.\w+, )*\*\.\w+$"}
                             ) `
                                 -ErrorMessage @(
-                                "Invalid format!"
+                                "Ungültiges Format! (Nicht `"*.abc, *.xyz`")"
                             )).Split(",").Trim()
                     } Else {
                         $Exclude = @()
@@ -137,29 +170,43 @@ Choice
                 }
 
                 If ((-Not $MatriculationNumber) -Or (-Not ($MatriculationNumber -Match "^\d+$"))) {
+
+                    # Do you want to include your matriculation number in the jar file's name?
+
+                    # 1) Yes, enter it manually
+                    # 2) Yes, find it automatically
+                    # 3) No, skip
+
+                    # Choice
+                    # ---
+                    # Invalid choice!
                     $Answer = Read-ValidInput `
                         -Prompt @"
 
-Do you want to include your matriculation number in the jar file's name?
+Soll deine Matrikelnummer in den .jar-Dateinamen?
 
-1) Yes, enter it manually
-2) Yes, find it automatically
-3) No, skip
+1) Ja, manuell eingeben
+2) Ja, automatisch finden
+3) Nein, überspringen
 
-Choice
+Wahl
 "@ `
                         -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
-                        -ErrorMessage "Invalid choice!"
+
+                        -ErrorMessage "Ungültige Wahl!"
 
                     Switch ($Answer) {
                         1 {
+                            # My matriculation number
+                            # ---
+                            # Invalid format!
                             $MatriculationNumber = Read-ValidInput `
-                                -Prompt "My matriculation number" `
+                                -Prompt "Meine Matrikelnummer" `
                                 -ValidityCheck @(
                                 {$args[0] -Match "^\d+$"}
                             ) `
                                 -ErrorMessage @(
-                                "Invalid format!"
+                                "Ungültiges Format!"
                             )
                             Break
                         }
@@ -167,9 +214,12 @@ Choice
                             $MatriculationNumber = Find-MatriculationNumber -ExerciseRootPath $ExerciseRootPath
 
                             If ($MatriculationNumber) {
-                                Write-MultiColor -Text @("Found matriculation number: ", $MatriculationNumber) -Color @("Cyan", "Yellow")
+                                # Found matriculation number:
+                                Write-MultiColor -Text @("Gefundene Matrikelnummer: ", $MatriculationNumber) -Color @("Cyan", "Yellow")
                             } Else {
-                                Write-Host "No matriculation number found." -ForegroundColor "Cyan"
+
+                                # No matriculation number found.
+                                Write-Host "Keine Matrikelnummer gefunden." -ForegroundColor "Cyan"
                             }
 
                             Break
@@ -180,19 +230,28 @@ Choice
                     }
                 }
 
+                # Which exercises do you want to create a jar file for?
+
+                # 1) The newest
+                # 2) Individual exercise numbers
+                # 3) All
+
+                # Choice
+                # ---
+                # Invalid choice!
                 $Answer = Read-ValidInput `
                     -Prompt @"
 
-Which exercises do you want to create a jar file for?
+Für welche Aufgaben möchtest du .jar-Dateien erstellen?
 
-1) The newest
-2) Individual exercise numbers
-3) All
+1) Die neueste
+2) Bestimmte Aufgabennummern
+3) Alle
 
-Choice
+Wahl
 "@ `
                     -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
-                    -ErrorMessage "Invalid choice!"
+                    -ErrorMessage "Ungültige Wahl!"
 
                 Switch ($Answer) {
                     1 {
@@ -204,13 +263,16 @@ Choice
                         Break
                     }
                     2 {
+                        # Comma separated exercise numbers
+                        # ---
+                        # Invalid format!
                         $ExerciseNumber = [Int[]](Read-ValidInput `
-                                -Prompt "Comma separated exercise numbers" `
+                                -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
                                 {$args[0] -Match "^(\d{1,2}, )*\d{1,2}$"}
                             ) `
                                 -ErrorMessage @(
-                                "Invalid format!"
+                                "Ungültiges Format!"
                             )).Split(",").Trim()
 
                         New-PlmJar `
@@ -236,33 +298,45 @@ Choice
             }
             2 {
                 If (-Not $PlmUsername) {
-                    $PlmUsername = Read-Host -Prompt "PLM username"
+
+                    # PLM username
+                    $PlmUsername = Read-Host -Prompt "PLM-Benutzername"
                 }
 
                 If (-Not $PlmPassword) {
-                    $PlmPassword = Read-Host -Prompt "PLM password" -AsSecureString
+
+                    # PLM password
+                    $PlmPassword = Read-Host -Prompt "PLM-Passwort" -AsSecureString
                 } ElseIf (-Not ($PlmPassword -Is [SecureString]) -And ($PlmPassword -Is [String])) {
                     $PlmPassword = $PlmPassword | ConvertTo-SecureString
                 }
 
                 If (-Not $MatriculationNumber) {
-                    $MatriculationNumber = Read-Host -Prompt "MatriculationNumber"
+
+                    # Matriculation number
+                    $MatriculationNumber = Read-Host -Prompt "Matrikelnummer"
                 }
 
                 If (-Not $UserPassword) {
-                    $UserPassword = Read-Host -Prompt "User password" -AsSecureString
+
+                    # User password
+                    $UserPassword = Read-Host -Prompt "Benutzer-Passwort" -AsSecureString
                 } ElseIf (-Not ($UserPassword -Is [SecureString]) -And ($UserPassword -Is [String])) {
                     $UserPassword = $UserPassword | ConvertTo-SecureString
                 }
 
                 $Session = Initialize-PlmSession -PlmUsername $PlmUsername -PlmPassword $PlmPassword -UserUsername $MatriculationNumber -UserPassword $UserPassword
+
+                # The path to the jar file that should be uploaded
+                # ---
+                # Not a jar file!
                 $JarFilePath = Read-ValidInput `
-                    -Prompt "The path to the jar file that should be uploaded" `
+                    -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
                     -ValidityCheck @(
                     {[System.IO.Path]::GetExtension($args[0]) -Eq ".jar"}
                 ) `
                     -ErrorMessage @(
-                    "Not a jar file!"
+                    "Nicht eine .jar-Datei!"
                 )
 
                 Publish-PlmJar -Session $Session -JarFilePath $JarFilePath
@@ -271,50 +345,72 @@ Choice
             }
             3 {
                 If (-Not $PlmUsername) {
-                    $PlmUsername = Read-Host -Prompt "PLM username"
+
+                    # PLM username
+                    $PlmUsername = Read-Host -Prompt "PLM-Benutzername"
                 }
 
                 If (-Not $PlmPassword) {
-                    $PlmPassword = Read-Host -Prompt "PLM password" -AsSecureString
+
+                    # PLM password
+                    $PlmPassword = Read-Host -Prompt "PLM-Passwort" -AsSecureString
                 } ElseIf (-Not ($PlmPassword -Is [SecureString]) -And ($PlmPassword -Is [String])) {
                     $PlmPassword = $PlmPassword | ConvertTo-SecureString
                 }
 
                 If (-Not $MatriculationNumber) {
-                    $MatriculationNumber = Read-Host -Prompt "MatriculationNumber"
+
+                    # Matriculation number
+                    $MatriculationNumber = Read-Host -Prompt "Matrikelnummer"
                 }
 
                 If (-Not $UserPassword) {
-                    $UserPassword = Read-Host -Prompt "User password" -AsSecureString
+
+                    # User password
+                    $UserPassword = Read-Host -Prompt "Benutzer-Passwort" -AsSecureString
                 } ElseIf (-Not ($UserPassword -Is [SecureString]) -And ($UserPassword -Is [String])) {
                     $UserPassword = $UserPassword | ConvertTo-SecureString
                 }
 
                 If (($DownloadPath -Eq $Null) -Or (-Not (Test-Path $DownloadPath))) {
+
+                    # The path to download the jar file to
+                    # ---
+                    # Invalid path!
                     $DownloadPath = Read-ValidInput `
-                        -Prompt "The path to download the jar file to" `
+                        -Prompt "Der Pfad, in den die .jar-Dateien heruntergeladen werden sollen" `
                         -ValidityCheck @(
                         {Test-Path $args[0]}
                     ) `
                         -ErrorMessage @(
-                        "Invalid path!"
+                        "Ungültiger Pfad!"
                     )
                 }
 
                 $Session = Initialize-PlmSession -PlmUsername $PlmUsername -PlmPassword $PlmPassword -UserUsername $MatriculationNumber -UserPassword $UserPassword
+
+                # Which exercise numbers do you want to download?
+
+                # 1) The newest
+                # 2) Individual exercise numbers
+                # 3) All
+
+                # Choice
+                # ---
+                # Invalid choice!
                 $Answer = Read-ValidInput `
                     -Prompt @"
 
-Which exercise numbers do you want to download?
+Welche Aufgabennummern sollen heruntergeladen werden?
 
-1) The newest
-2) Individual exercise numbers
-3) All
+1) Die neueste
+2) Bestimmte Aufgabennummern
+3) Alle
 
-Choice
+Wahl
 "@ `
                     -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
-                    -ErrorMessage "Invalid choice!"
+                    -ErrorMessage "Ungültige Wahl!"
 
                 Switch ($Answer) {
                     1 {
@@ -326,7 +422,8 @@ Choice
                         Break
                     }
                     2 {
-                        Write-Host "Available download options: "
+                        # Available download options:
+                        Write-Host "Verfügbare Download-Optionen: "
 
                         $AvailableJars = Get-PlmJar `
                             -Session $Session `
@@ -338,13 +435,16 @@ Choice
                             Write-Host $AvailableJar.PSObject.Properties.Name
                         }
 
+                        # Comma separated exercise numbers
+                        # ---
+                        # Invalid format!
                         $ExerciseNumber = [Int[]](Read-ValidInput `
-                                -Prompt "Comma separated exercise numbers" `
+                                -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
                                 {$args[0] -Match "^(\d{1,2}, )*\d{1,2}$"}
                             ) `
                                 -ErrorMessage @(
-                                "Invalid format!"
+                                "Ungültiges Format!"
                             )).Split(",").Trim()
 
                         Get-PlmJar `
