@@ -30,3 +30,14 @@ Dieses Tool soll einem das Erstellen und somit die Abgabe der eigenen Übungslö
 ├── Aufgabenblatt 2\
 :
 ```
+
+## Konfiguration
+
+- **EncryptedPassword**
+Der Wert für das verschlüsselte Passwort ist accountabhängig und kann über folgendes Kommando erstellt werden:
+
+```PowerShell
+'passwort' | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString
+```
+
+Dass Apostrophe das Passwort einschließen ist notwendig, um gewisse Sonderzeichen im Passwort zu ermöglichen.
