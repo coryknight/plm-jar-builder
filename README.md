@@ -41,7 +41,7 @@ In erster Linie sollte der Assistent verwendet werden, der durch die möglichen 
 Invoke-PlmJarBuilder
 ```
 
-Alternativ können auch [einzelne Module]() direkt angesprochen werden.
+Alternativ können auch [einzelne Module](#Module) direkt angesprochen werden.
 
 <a name="Funktion"></a>
 
