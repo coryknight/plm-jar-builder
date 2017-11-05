@@ -38,7 +38,7 @@ Function Invoke-PlmJarBuilder {
         $LatestRelease = $Null
 
         Try {
-            $LatestRelease = New-Object "System.Version" (Invoke-RestMethod -Uri "https://api.github.com/repos/$ModuleAuthorUsername/$ModuleName/releases/latest")
+            $LatestRelease = New-Object "System.Version" (Invoke-RestMethod -Uri "https://api.github.com/repos/$ModuleAuthorUsername/$ModuleName/releases/latest").tag_name
         } Catch {
             # Latest release does not exist
         }
@@ -192,7 +192,6 @@ Soll deine Matrikelnummer in den .jar-Dateinamen?
 Wahl
 "@ `
                         -ValidityCheck {@(1, 2, 3) -Contains $args[0]} `
-
                         -ErrorMessage "Ungültige Wahl!"
 
                     Switch ($Answer) {
