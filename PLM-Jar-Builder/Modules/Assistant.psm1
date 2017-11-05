@@ -29,6 +29,15 @@ Function Invoke-PlmJarBuilder {
 
     If (-Not $Offline) {
 
+        # Installing dependencies...(Skip with "Invoke-PlmJarBuilder -Offline")
+        Write-Host "Installiere Abhängigkeiten... (Überspringen mit `"Invoke-PlmJarBuilder -Offline`")" -ForegroundColor "Cyan"
+
+        If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
+            Install-Module -Name "PSDepend" -Scope CurrentUser
+        }
+
+        Invoke-PSDepend -Path "${PSScriptRoot}\..\Requirements.psd1" -Install -Import -Force
+
         #Checking for updates
         Write-Host "Suche nach Updates..." -ForegroundColor "Cyan"
 
@@ -43,22 +52,18 @@ Function Invoke-PlmJarBuilder {
             # Latest release does not exist
         }
 
-        If ($LatestRelease -And $LatestRelease.CompareTo($ExistingVersion)) {
+        If ($LatestRelease -And ($LatestRelease.CompareTo($ExistingVersion) -Eq 1)) {
 
             # A new version of $ModuleName was found. Currently installed is v$ExistingVersion. Do you want to automatically update to the new version now?
             If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "Eine neue Version vom $ModuleName wurde gefunden. Aktuell installiert ist v$ExistingVersion. Soll jetzt automatisch zur neuesten Version geupdatet werden?" -DefaultChoice 0) {
-                Invoke-PSDepend @{"$ModuleAuthorUsername/$ModuleName" = ""} -Install -Import -Force
+                Invoke-PSDepend -InputObject @{"$ModuleAuthorUsername/$ModuleName" = "master"} -Install -Force
+                Remove-Module $ModuleName
+
+                # Module installed. Please enter `"Import-Module $ModuleName`" and run `"Invoke-PlmJarBuilder`" again.
+                Write-MultiColor -Text @("Modul installiert. Bitte `"", "Import-Module $ModuleName", "`" eingeben und `"", "Invoke-PlmJarBuilder", "`" neu ausführen.") -Color White, Cyan, White, Cyan, White
+                Exit
             }
         }
-
-        # Installing dependencies
-        Write-Host "Installiere Abhängigkeiten..." -ForegroundColor "Cyan"
-
-        If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
-            Install-Module -Name "PSDepend" -Scope CurrentUser
-        }
-
-        Invoke-PSDepend -Path "..\Requirements.psd1" -Install -Import -Force
     }
 
     $ConfigPath = Get-PlmJarBuilderVariable -Name "ConfigPath"
