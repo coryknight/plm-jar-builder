@@ -98,7 +98,12 @@ Function Invoke-PlmJarBuilder {
     Write-MultiColor -Text @("UserPassword = ", $UserPassword) -Color ("White", "Cyan")
 
     :mainloop While ($True) {
+        Write-Host "-----------------------------------------" -ForegroundColor "Red"
+
         # What do you want to do?
+        Write-Host @"
+Was möchtest du tun?
+"@ ` -ForegroundColor "Yellow"
 
         # 1) Create JAR files
         # 2) Upload JAR to PLM
@@ -110,9 +115,6 @@ Function Invoke-PlmJarBuilder {
         # Invalid choice!
         $Answer = Read-ValidInput `
             -Prompt @"
-
-Was möchtest du tun?
-
 1) .jar-Dateien erstellen
 2) .jar-Dateien zu PLM hochladen
 3) .jar-Dateien von PLM herunterladen
@@ -177,6 +179,9 @@ Wahl
                 If ((-Not $MatriculationNumber) -Or (-Not ($MatriculationNumber -Match "^\d+$"))) {
 
                     # Do you want to include your matriculation number in the jar file's name?
+                    Write-Host @"
+Soll deine Matrikelnummer in den .jar-Dateinamen?"
+"@ -ForegroundColor "Yellow"
 
                     # 1) Yes, enter it manually
                     # 2) Yes, find it automatically
@@ -187,9 +192,6 @@ Wahl
                     # Invalid choice!
                     $Answer = Read-ValidInput `
                         -Prompt @"
-
-Soll deine Matrikelnummer in den .jar-Dateinamen?
-
 1) Ja, manuell eingeben
 2) Ja, automatisch finden
 3) Nein, überspringen
@@ -235,6 +237,9 @@ Wahl
                 }
 
                 # Which exercises do you want to create a jar file for?
+                Write-Host @"
+Für welche Aufgaben möchtest du .jar-Dateien erstellen?"
+"@ -ForegroundColor "Yellow"
 
                 # 1) The newest
                 # 2) Individual exercise numbers
@@ -245,9 +250,6 @@ Wahl
                 # Invalid choice!
                 $Answer = Read-ValidInput `
                     -Prompt @"
-
-Für welche Aufgaben möchtest du .jar-Dateien erstellen?
-
 1) Die neueste
 2) Bestimmte Aufgabennummern
 3) Alle
@@ -345,6 +347,19 @@ Wahl
 
                 Publish-PlmJar -Session $Session -JarFilePath $JarFilePath
 
+                If ($?) {
+
+                    # Upload successful.
+                    Write-Host "Upload erfolgreich." -ForegroundColor "Green"
+
+                    # It's recommended to download and verify the just uploaded file.
+                    Write-Host "Es wird empfohlen, die gerade hochgeladene Datei nochmal herunterzuladen und zu überprüfen."
+                } Else {
+
+                    # Upload failed!
+                    Write-Error "Upload fehlgeschlagen!"
+                }
+
                 Break
             }
             3 {
@@ -394,6 +409,9 @@ Wahl
                 $Session = Initialize-PlmSession -PlmUsername $PlmUsername -PlmPassword $PlmPassword -UserUsername $MatriculationNumber -UserPassword $UserPassword
 
                 # Which exercise numbers do you want to download?
+                Write-Host @"
+Welche Aufgabennummern sollen heruntergeladen werden?
+"@ -ForegroundColor "Yellow"
 
                 # 1) The newest
                 # 2) Individual exercise numbers
@@ -404,9 +422,6 @@ Wahl
                 # Invalid choice!
                 $Answer = Read-ValidInput `
                     -Prompt @"
-
-Welche Aufgabennummern sollen heruntergeladen werden?
-
 1) Die neueste
 2) Bestimmte Aufgabennummern
 3) Alle
@@ -436,7 +451,7 @@ Wahl
                             -ListAvailable
 
                         ForEach ($AvailableJar In $AvailableJars) {
-                            Write-Host $AvailableJar.PSObject.Properties.Name
+                            Write-Host $AvailableJar.PSObject.Properties.Name -ForegroundColor "Cyan"
                         }
 
                         # Comma separated exercise numbers
