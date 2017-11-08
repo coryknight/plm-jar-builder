@@ -336,14 +336,15 @@ Wahl
                 # The path to the jar file that should be uploaded
                 # ---
                 # Not a jar file!
-                $JarFilePath = Read-ValidInput `
-                    -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
-                    -ValidityCheck @(
-                    {[System.IO.Path]::GetExtension($args[0]) -Eq ".jar"}
-                ) `
-                    -ErrorMessage @(
-                    "Nicht eine .jar-Datei!"
-                )
+                $JarFilePath = (Read-ValidInput `
+                        -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
+                        -ValidityCheck @(
+                        {[System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar"}
+                    ) `
+                        -ErrorMessage @(
+                        "Nicht eine .jar-Datei!"
+                    )
+                ).Replace("`"", "")
 
                 Publish-PlmJar -Session $Session -JarFilePath $JarFilePath
 
