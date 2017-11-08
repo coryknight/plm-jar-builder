@@ -96,7 +96,7 @@ Standardwert: `%Downloads%` (Registry-Schlüssel)
 
 - **Exclude**  
 Dateiendungen, die nicht in die .jar-Datei gepackt werden sollen.  
-Standardwert: `"*.class", "*.jar", "*.odt", "*.odg"`
+Standardwert: `"*.class", "*.eml", "*.jar", "*.odt", "*.odg", "In.java", "Out.java"`
 
 - **NoNote**  
 Festlegen, ob eine Markdown-Notiz bezüglich dieses Moduls mit in die .jar-Datei gepackt werden soll.  

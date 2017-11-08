@@ -33,7 +33,7 @@ Function Invoke-PlmJarBuilder {
         Write-Host "Installiere Abhängigkeiten... (Überspringen mit `"Invoke-PlmJarBuilder -Offline`")" -ForegroundColor "Cyan"
 
         If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
-            Install-Module -Name "PSDepend" -Scope CurrentUser
+            Install-Module -Name "PSDepend" -Scope "CurrentUser"
         }
 
         Invoke-PSDepend -Path "${PSScriptRoot}\..\Requirements.psd1" -Install -Import -Force
@@ -158,16 +158,16 @@ Wahl
                     # Exclusion
                     # Do you want to exclude certain file types?
                     If (Read-PromptYesNo -Caption "Ausschluss" -Message "Sollen bestimmte Dateitypen vom Packen in die .jar-Datei ausgeschlossen werden?") {
-                        # Comma separated file exclusions
+                        # Comma separated file types & names
                         # ---
                         # Invalid format! (Not `"*.abc, *.xyz`")
                         $Exclude = [String[]](Read-ValidInput `
-                                -Prompt "Kommagetrennte Dateitypen" `
+                                -Prompt "Kommagetrennte Dateitypen & Dateinamen" `
                                 -ValidityCheck @(
-                                {$args[0] -Match "^(\*\.\w+, )*\*\.\w+$"}
+                                {($args[0].Split(",").Trim() -NotMatch "^([\*\w-]+)\.([\w-]+)$").Count -Eq 0}
                             ) `
                                 -ErrorMessage @(
-                                "Ungültiges Format! (Nicht `"*.abc, *.xyz`")"
+                                "Ungültiges Format! (Nicht `"*.abc, test.xyz`")"
                             )).Split(",").Trim()
                     } Else {
                         $Exclude = @()

@@ -111,7 +111,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: @("*.jar")
+Default value: @("*.class", "*.eml", "*.jar", "*.odt", "*.odg", "In.java", "Out.java")
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
