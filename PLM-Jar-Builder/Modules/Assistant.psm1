@@ -81,21 +81,21 @@ Function Invoke-PlmJarBuilder {
     Write-Host "Geladene Konfiguration:" -ForegroundColor "Yellow"
 
     $ExerciseRootPath = (Get-PlmJarBuilderConfigProperty -PropertyName "ExerciseRootPath").ExerciseRootPath.TrimEnd("\")
-    Write-Host "ExerciseRootPath = $ExerciseRootPath" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("ExerciseRootPath = ", $ExerciseRootPath) -Color White, Cyan
     $DownloadPath = (Get-PlmJarBuilderConfigProperty -PropertyName "DownloadPath").DownloadPath.TrimEnd("\")
-    Write-Host "DownloadPath = $DownloadPath" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("DownloadPath = ", $DownloadPath) -Color ("White", "Cyan")
     $Exclude = (Get-PlmJarBuilderConfigProperty -PropertyName "Exclude").Exclude
-    Write-Host "Exclude = $Exclude" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("Exclude = ", $Exclude) -Color ("White", "Cyan")
     $NoNote = (Get-PlmJarBuilderConfigProperty -PropertyName "NoNote").NoNote
-    Write-Host "NoNote = $NoNote" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("NoNote = ", $NoNote) -Color ("White", "Cyan")
     $PlmUsername = (Get-PlmJarBuilderConfigProperty -PropertyName "PlmUsername").Username
-    Write-Host "PlmUsername = $PlmUsername" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("PlmUsername = ", $PlmUsername) -Color ("White", "Cyan")
     $PlmPassword = (Get-PlmJarBuilderConfigProperty -PropertyName "PlmPassword").EncryptedPassword
-    Write-Host "PlmPassword = $PlmPassword" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("PlmPassword = ", $PlmPassword) -Color ("White", "Cyan")
     $MatriculationNumber = (Get-PlmJarBuilderConfigProperty -PropertyName "MatriculationNumber").MatriculationNumber
-    Write-Host "MatriculationNumber = $MatriculationNumber" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("MatriculationNumber = ", $MatriculationNumber) -Color ("White", "Cyan")
     $UserPassword = (Get-PlmJarBuilderConfigProperty -PropertyName "UserPassword").EncryptedPassword
-    Write-Host "UserPassword = $UserPassword" -ForegroundColor "Cyan"
+    Write-MultiColor -Text @("UserPassword = ", $UserPassword) -Color ("White", "Cyan")
 
     :mainloop While ($True) {
         # What do you want to do?
