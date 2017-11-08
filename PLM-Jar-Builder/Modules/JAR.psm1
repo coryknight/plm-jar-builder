@@ -193,7 +193,7 @@ Function New-PlmJar {
         [Switch] $NoNote,
 
         [ValidateNotNull()]
-        [String[]] $Exclude = @("*.class", "*.eml", "*.jar", "*.odt", "*.odg", "In.java", "Out.java"),
+        [String[]] $Exclude = @("*.class", "*.eml", "*.jar", "*.odt", "*.odg", "*.old", "In.java", "Out.java"),
 
         [ValidateNotNullOrEmpty()]
         [Int] $MatriculationNumber
