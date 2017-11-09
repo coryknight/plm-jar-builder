@@ -434,7 +434,7 @@ Function Test-PlmUploadAvailable {
 
     $LocalRequest.ParsedHtml.Body.GetElementsByClassName("info") |
         ForEach-Object {
-        If ($PSItem.innerText.Trim() -Eq "Es steht keine Abgabe von Lösungen an") {
+        If ($PSItem.innerText.Trim() -Match "Es steht keine Abgabe von Lösungen an") {
             $MatchFound = $True
         }
     }
