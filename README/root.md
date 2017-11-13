@@ -111,7 +111,7 @@ Der PLM-Benutzername.
 Standardwert: `""`
 
 - **EncryptedPassword**  
-Eine [verschlüsselte Version](#Verschlüsselte%20Passwörter) des PLM-Passworts.  
+Eine [verschlüsselte Version](#verschlüsselte-passwörter) des PLM-Passworts.  
 Standardwert: `""`
 
 
@@ -123,7 +123,7 @@ Die Matrikelnummer, die als Benutzername für die PLM-Seite im Dateinamen der .j
 Standardwert: `""`
 
 - **EncryptedPassword**  
-Eine [verschlüsselte Version](#Verschlüsselte%20Passwörter) des Benutzerpassworts.  
+Eine [verschlüsselte Version](#verschlüsselte-passwörter) des Benutzerpassworts.  
 Standardwert: `""`
 
 
