@@ -170,7 +170,7 @@ Function Get-ExerciseFolder {
     https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/New-PlmJar.md
 #>
 Function New-PlmJar {
-    [CmdletBinding(DefaultParametersetName = "Default")]
+    [CmdletBinding(DefaultParametersetName = "Newest")]
 
     Param (
         [Parameter(Mandatory = $True)]
@@ -211,7 +211,7 @@ Function New-PlmJar {
             $ExercisePaths = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath
             Break
         }
-        "Default" {
+        "Newest" {
             $ExercisePaths = Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath -Newest
             Break
         }

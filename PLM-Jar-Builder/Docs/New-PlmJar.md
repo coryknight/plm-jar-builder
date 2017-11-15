@@ -12,7 +12,7 @@ Create new PLM-Jar archives.
 
 ## SYNTAX
 
-### Default (Default)
+### Newest (Default)
 ```
 New-PlmJar -ExerciseRootPath <String> [-NoNote] [-Exclude <String[]>] [-MatriculationNumber <Int32>]
 ```
