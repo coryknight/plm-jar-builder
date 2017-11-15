@@ -5,6 +5,12 @@
     .DESCRIPTION
     The "Invoke-PlmJarBuilder" cmdlet leads through the execution of possible PLM-Jar-Buidler commands.
 
+    .PARAMETER SkipDependencyCheck
+    Whether to disable dependency resolution.
+
+    .PARAMETER SkipUpdateCheck
+    Whether to disable update checks.
+
     .PARAMETER Offline
     Whether to disable update checks and dependency resolution.
 
@@ -16,6 +22,8 @@
 #>
 Function Invoke-PlmJarBuilder {
     Param(
+        [Switch] $SkipDependencyCheck,
+        [Switch] $SkipUpdateCheck,
         [Switch] $Offline
     )
 
@@ -29,39 +37,43 @@ Function Invoke-PlmJarBuilder {
 
     If (-Not $Offline) {
 
-        # Installing dependencies...(Skip with "Invoke-PlmJarBuilder -Offline")
-        Write-Host "Installiere Abhängigkeiten... (Überspringen mit `"Invoke-PlmJarBuilder -Offline`")" -ForegroundColor "Cyan"
+        If (-Not $SkipDependencyCheck) {
+            # Installing dependencies...(Skip with "Invoke-PlmJarBuilder -Offline")
+            Write-Host "Installiere Abhängigkeiten... (Überspringen mit `"Invoke-PlmJarBuilder -SkipDependencyCheck`")" -ForegroundColor "Cyan"
 
-        If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
-            Install-Module -Name "PSDepend" -Scope "CurrentUser"
+            If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
+                Install-Module -Name "PSDepend" -Scope "CurrentUser"
+            }
+
+            Invoke-PSDepend -Path "${PSScriptRoot}\..\Requirements.psd1" -Install -Import -Force
         }
 
-        Invoke-PSDepend -Path "${PSScriptRoot}\..\Requirements.psd1" -Install -Import -Force
+        If (-Not $SkipUpdateCheck) {
+            #Checking for updates
+            Write-Host "Suche nach Updates..." -ForegroundColor "Cyan"
 
-        #Checking for updates
-        Write-Host "Suche nach Updates..." -ForegroundColor "Cyan"
+            $ModuleAuthorUsername = Get-PlmJarBuilderVariable -Name "ModuleAuthorUsername"
+            $ModuleName = Get-PlmJarBuilderVariable -Name "ModuleName"
+            $ExistingVersion = (Get-Module -Name $ModuleName).Version
+            $LatestRelease = $Null
 
-        $ModuleAuthorUsername = Get-PlmJarBuilderVariable -Name "ModuleAuthorUsername"
-        $ModuleName = Get-PlmJarBuilderVariable -Name "ModuleName"
-        $ExistingVersion = (Get-Module -Name $ModuleName).Version
-        $LatestRelease = $Null
+            Try {
+                $LatestRelease = New-Object "System.Version" (Invoke-RestMethod -Uri "https://api.github.com/repos/$ModuleAuthorUsername/$ModuleName/releases/latest").tag_name
+            } Catch {
+                # Latest release does not exist
+            }
 
-        Try {
-            $LatestRelease = New-Object "System.Version" (Invoke-RestMethod -Uri "https://api.github.com/repos/$ModuleAuthorUsername/$ModuleName/releases/latest").tag_name
-        } Catch {
-            # Latest release does not exist
-        }
+            If ($LatestRelease -And ($LatestRelease.CompareTo($ExistingVersion) -Eq 1)) {
 
-        If ($LatestRelease -And ($LatestRelease.CompareTo($ExistingVersion) -Eq 1)) {
+                # A new version of $ModuleName was found. Currently installed is v$ExistingVersion. Do you want to automatically update to the new version now?
+                If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "Eine neue Version vom $ModuleName wurde gefunden. Aktuell installiert ist v$ExistingVersion. Soll jetzt automatisch zur neuesten Version geupdatet werden?" -DefaultChoice 0) {
+                    Invoke-PSDepend -InputObject @{"$ModuleAuthorUsername/$ModuleName" = "master"} -Install -Force
+                    Remove-Module $ModuleName
 
-            # A new version of $ModuleName was found. Currently installed is v$ExistingVersion. Do you want to automatically update to the new version now?
-            If (Read-PromptYesNo -Caption "v$LatestRelease" -Message "Eine neue Version vom $ModuleName wurde gefunden. Aktuell installiert ist v$ExistingVersion. Soll jetzt automatisch zur neuesten Version geupdatet werden?" -DefaultChoice 0) {
-                Invoke-PSDepend -InputObject @{"$ModuleAuthorUsername/$ModuleName" = "master"} -Install -Force
-                Remove-Module $ModuleName
-
-                # Module installed. Please enter `"Import-Module $ModuleName`" and run `"Invoke-PlmJarBuilder`" again.
-                Write-MultiColor -Text @("Modul installiert. Bitte `"", "Import-Module $ModuleName", "`" eingeben und `"", "Invoke-PlmJarBuilder", "`" neu ausführen.") -Color White, Cyan, White, Cyan, White
-                Exit
+                    # Module installed. Please enter `"Import-Module $ModuleName`" and run `"Invoke-PlmJarBuilder`" again.
+                    Write-MultiColor -Text @("Modul installiert. Bitte `"", "Import-Module $ModuleName", "`" eingeben und `"", "Invoke-PlmJarBuilder", "`" neu ausführen.") -Color White, Cyan, White, Cyan, White
+                    Exit
+                }
             }
         }
     }

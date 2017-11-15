@@ -13,7 +13,7 @@ Invokes the PLM-Jar-Builder.
 ## SYNTAX
 
 ```
-Invoke-PlmJarBuilder [-Offline]
+Invoke-PlmJarBuilder [-SkipDependencyCheck] [-SkipUpdateCheck] [-Offline]
 ```
 
 ## DESCRIPTION
@@ -27,6 +27,36 @@ Invoke-PlmJarBuilder
 ```
 
 ## PARAMETERS
+
+### -SkipDependencyCheck
+Whether to disable dependency resolution.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SkipUpdateCheck
+Whether to disable update checks.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Offline
 Whether to disable update checks and dependency resolution.
