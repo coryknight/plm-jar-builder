@@ -72,7 +72,7 @@ Function Invoke-PlmJarBuilder {
 
                     # Module installed. Please enter `"Import-Module $ModuleName`" and run `"Invoke-PlmJarBuilder`" again.
                     Write-MultiColor -Text @("Modul installiert. Bitte `"", "Import-Module $ModuleName", "`" eingeben und `"", "Invoke-PlmJarBuilder", "`" neu ausführen.") -Color White, Cyan, White, Cyan, White
-                    Exit
+                    Break
                 }
             }
         }
