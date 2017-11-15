@@ -486,6 +486,16 @@ Wahl
                     }
                 }
 
+                If ($?) {
+                    
+                    # Download successful.
+                    Write-Host "Download erfolgreich." -ForegroundColor "Green"
+                } Else {
+
+                    # Download failed!
+                    Write-Error "Download fehlgeschlagen!"
+                }
+
                 Break
             }
             4 {
