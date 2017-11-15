@@ -258,7 +258,7 @@ Function New-PlmJarConfig {
         [String] $DownloadPath = (Get-DownloadFolder),
 
         [ValidateNotNull()]
-        [Object] $Exclude = @("*.class", "*.eml", "*.jar", "*.odt", "*.odg", "*.old", "In.java", "Out.java"),
+        [Object] $Exclude = @("*.class", "*.eml", "*.iml", "*.jar", "*.odt", "*.odg", "*.old", ".idea", "In.java", "out", "Out.java"),
 
         [ValidateNotNullOrEmpty()]
         [Switch] $NoNote,
