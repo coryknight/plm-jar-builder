@@ -231,7 +231,12 @@ Function New-PlmJar {
             Throw "Solution path does not exist!"
         }
 
-        $Files = @(Get-ChildItem -Path "$SolutionPathAbsolute" -Exclude:$Exclude -Recurse -File)
+        $Files = @(
+            Get-ChildItem -Path "$SolutionPathAbsolute" -Exclude:$Exclude -Recurse -File |
+                Where-Object {
+                $Exclude -NotContains $PSItem.Directory.Name
+            }
+        )
 
         # Add an optional note
         If (-Not $NoNote) {
