@@ -285,13 +285,14 @@ Function Initialize-PlmSession {
     .PARAMETER Session
     A web session to the PLM website.
 
-    .PARAMETER JarFilePath
-    The path to the jar file that is to be uploaded.
+    .PARAMETER Path
+    The path directly to an exercise root folder or to the jar file that is to be uploaded.
 
     .EXAMPLE
     $Session = Initialize-PlmSession -PlmUsername "PLM" -UserUsername $UserUsername
 
-    Publish-PlmJar -Session $Session -JarFilePath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen\Aufgabenblatt 1\Lösung\123456789_01.jar"
+    Publish-PlmJar -Session $Session -Path "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
+    Publish-PlmJar -Session $Session -Path "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen\Aufgabenblatt 1\Lösung\123456789_01.jar"
 
     .LINK
     https://github.com/Dargmuesli/plm-jar-builder/blob/master/PLM-Jar-Builder/Docs/Publish-PlmJar.md
@@ -304,12 +305,31 @@ Function Publish-PlmJar {
 
         [Parameter(Mandatory = $True)]
         [ValidateScript({Test-Path -Path $PSItem})]
-        [String] $JarFilePath
+        [String] $Path
     )
 
-    # Get the exercise number from file name
     $JarFileRegex = [Regex] (Get-PlmJarBuilderConfigProperty -PropertyName "JarFileRegex").JarFileRegex
-    $JarFileName = (Get-Item -Path $JarFilePath).Name
+
+    # Resolve exercise root path to newest jar file path
+    If (Test-Path -Path $Path -PathType "Container") {
+        $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $Path -Newest
+        $SolutionPath = (Get-PlmJarBuilderConfigProperty -PropertyName "SolutionPath").SolutionPath
+        $JarFile = Get-ChildItem -Path "$($ExerciseFolder.FullName)\$SolutionPath" -Filter "*.jar" -File |
+            Where-Object {
+            $PSItem.Name -Match $JarFileRegex
+        }
+
+        If ($JarFile.Count -Ne 1) {
+            
+            # More than one newest .jar file found!
+            Throw "Mehr als eine neueste .jar-Datei gefunden!"
+        } Else {
+            $Path = $JarFile[0].FullName
+        }
+    }
+
+    # Get the exercise number from file name
+    $JarFileName = (Get-Item -Path $Path).Name
     $ExerciseNumber = $JarFileRegex.Match($JarFileName).Groups[2].Value
 
     # Request upload site to check upload availability
@@ -326,9 +346,9 @@ Function Publish-PlmJar {
             # http://blog.majcica.com/2016/01/13/powershell-tips-and-tricks-multipartform-data-requests/
             Add-Type -AssemblyName "System.Web"
 
-            $ContentType = [System.Web.MimeMapping]::GetMimeMapping($JarFilePath)
+            $ContentType = [System.Web.MimeMapping]::GetMimeMapping($Path)
             $Boundary = "---------------------------$([GUID]::NewGuid().ToString())"
-            $FileBin = [System.IO.File]::ReadAllBytes($JarFilePath)
+            $FileBin = [System.IO.File]::ReadAllBytes($Path)
             $EncodingIso = [System.Text.Encoding]::GetEncoding("ISO-8859-1")
             $EncodingUtf = [System.Text.Encoding]::GetEncoding("UTF-8")
             $JarBytes = $EncodingUtf.GetBytes($JarFileName)

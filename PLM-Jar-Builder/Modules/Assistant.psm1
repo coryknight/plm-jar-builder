@@ -333,20 +333,70 @@ Wahl
 
                 $Session = Initialize-PlmSession -PlmUsername $PlmUsername -PlmPassword $PlmPassword -UserUsername $MatriculationNumber -UserPassword $UserPassword
 
-                # The path to the jar file that should be uploaded
-                # ---
-                # Not a jar file!
-                $JarFilePath = (Read-ValidInput `
-                        -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
-                        -ValidityCheck @(
-                        {[System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar"}
-                    ) `
-                        -ErrorMessage @(
-                        "Nicht eine .jar-Datei!"
-                    )
-                ).Replace("`"", "")
+                # Which .jar file do you want to upload?
+                Write-Host @"
+Welche .jar-Datei möchtest du hochladen?"
+"@ -ForegroundColor "Yellow"
+                
+                # 1) The newest
+                # 2) Individual .jar file
 
-                Publish-PlmJar -Session $Session -JarFilePath $JarFilePath
+                # Choice
+                # ---
+                # Invalid choice!
+                $Answer = Read-ValidInput `
+                    -Prompt @"
+1) Die neueste
+2) Bestimmte .jar-Datei
+
+Wahl
+"@ `
+                    -ValidityCheck {@(1, 2) -Contains $args[0]} `
+                    -ErrorMessage "Ungültige Wahl!"
+                
+                Switch ($Answer) {
+                    1 {
+                        If (($ExerciseRootPath -Eq $Null) -Or (-Not (Test-Path $ExerciseRootPath)) -Or (-Not (Get-ExerciseFolder -ExerciseRootPath $ExerciseRootPath))) {
+                        
+                            # The path in which the exercise folders are placed
+                            # ---
+                            # Invalid path!
+                            # The given folder does not contain exercise folders!
+                            $ExerciseRootPath = Read-ValidInput `
+                                -Prompt "Der Pfad, in dem sich die Aufgaben-Ordern befinden" `
+                                -ValidityCheck @(
+                                {Test-Path $args[0]}
+                                {Get-ExerciseFolder -ExerciseRootPath $args[0]}
+                            ) `
+                                -ErrorMessage @(
+                                "Ungültiger Pfad!"
+                                "Der angegebene Ordner enthält keine Aufgaben-Order!"
+                            )
+                        }
+        
+                        Publish-PlmJar -Session $Session -Path $ExerciseRootPath
+
+                        Break
+                    }
+                    2 {
+                        # The path to the jar file that should be uploaded
+                        # ---
+                        # Not a jar file!
+                        $Path = (Read-ValidInput `
+                                -Prompt "Der Pfad zur .jar-Datei, die hochgeladen werden soll" `
+                                -ValidityCheck @(
+                                {[System.IO.Path]::GetExtension($args[0].Replace("`"", "")) -Eq ".jar"}
+                            ) `
+                                -ErrorMessage @(
+                                "Nicht eine .jar-Datei!"
+                            )
+                        ).Replace("`"", "")
+        
+                        Publish-PlmJar -Session $Session -Path $Path
+
+                        Break
+                    }
+                }
 
                 If ($?) {
 

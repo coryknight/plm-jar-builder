@@ -582,9 +582,9 @@
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-          <maml:name>JarFilePath</maml:name>
+          <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>The path to the jar file that is to be uploaded.</maml:para>
+            <maml:para>The path directly to an exercise root folder or to the jar file that is to be uploaded.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -609,9 +609,9 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>JarFilePath</maml:name>
+        <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>The path to the jar file that is to be uploaded.</maml:para>
+          <maml:para>The path directly to an exercise root folder or to the jar file that is to be uploaded.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -633,7 +633,7 @@
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
         <dev:code>$Session = Initialize-PlmSession -PlmUsername "PLM" -UserUsername $UserUsername</dev:code>
         <dev:remarks>
-          <maml:para>Publish-PlmJar -Session $Session -JarFilePath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen\Aufgabenblatt 1\Lösung\123456789_01.jar"</maml:para>
+          <maml:para>Publish-PlmJar -Session $Session -Path "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen" Publish-PlmJar -Session $Session -Path "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen\Aufgabenblatt 1\Lösung\123456789_01.jar"</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

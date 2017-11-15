@@ -13,7 +13,7 @@ Publishs a PLM-Jar.
 ## SYNTAX
 
 ```
-Publish-PlmJar [-Session] <WebRequestSession> [-JarFilePath] <String>
+Publish-PlmJar [-Session] <WebRequestSession> [-Path] <String>
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,8 @@ If the upload site currently does allow uploads a HTTPS post request for the giv
 $Session = Initialize-PlmSession -PlmUsername "PLM" -UserUsername $UserUsername
 ```
 
-Publish-PlmJar -Session $Session -JarFilePath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen\Aufgabenblatt 1\Lösung\123456789_01.jar"
+Publish-PlmJar -Session $Session -Path "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
+Publish-PlmJar -Session $Session -Path "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen\Aufgabenblatt 1\Lösung\123456789_01.jar"
 
 ## PARAMETERS
 
@@ -46,8 +47,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -JarFilePath
-The path to the jar file that is to be uploaded.
+### -Path
+The path directly to an exercise root folder or to the jar file that is to be uploaded.
 
 ```yaml
 Type: String
