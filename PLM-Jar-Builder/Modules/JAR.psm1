@@ -42,7 +42,7 @@ Function Find-MatriculationNumber {
 
     # Filter found matriculation numbers
     ForEach ($FoundMatriculationNumber In $FoundMatriculationNumbers) {
-        If ($All -Or (-Not ($MatriculationNumber -Contains $FoundMatriculationNumber))) {
+        If ($FoundMatriculationNumber -And ($All -Or (-Not ($MatriculationNumber -Contains $FoundMatriculationNumber)))) {
             $MatriculationNumber += [Int] $FoundMatriculationNumber
         }
     }
