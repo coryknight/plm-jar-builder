@@ -45,6 +45,9 @@ Dazu in einem PowerShell-Fenster einfach folgenden Befehl eingeben:
 Invoke-PlmJarBuilder
 ```
 
+### Screenshot
+![Screenshot](Resources/screenshot.png "Screenshot")
+
 Alternativ können auch [einzelne Module](#Module) direkt angesprochen werden.
 
 <a name="Functionality"></a>
