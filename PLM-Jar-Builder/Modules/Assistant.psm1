@@ -344,6 +344,7 @@ Wahl
                 }
 
                 $Session = Initialize-PlmSession -PlmUsername $PlmUsername -PlmPassword $PlmPassword -UserUsername $MatriculationNumber -UserPassword $UserPassword
+                $ErrorVariable = $Null
 
                 # Which .jar file do you want to upload?
                 Write-Host @"
@@ -386,7 +387,7 @@ Wahl
                             )
                         }
         
-                        Publish-PlmJar -Session $Session -Path $ExerciseRootPath
+                        Publish-PlmJar -Session $Session -Path $ExerciseRootPath -ErrorVariable "ErrorVariable"
 
                         Break
                     }
@@ -404,23 +405,19 @@ Wahl
                             )
                         ).Replace("`"", "")
         
-                        Publish-PlmJar -Session $Session -Path $Path
+                        Publish-PlmJar -Session $Session -Path $Path -ErrorVariable "ErrorVariable"
 
                         Break
                     }
                 }
 
-                If ($?) {
+                If (-Not $ErrorVariable) {
 
                     # Upload successful.
                     Write-Host "Upload erfolgreich." -ForegroundColor "Green"
 
                     # It's recommended to download and verify the just uploaded file.
                     Write-Host "Es wird empfohlen, die gerade hochgeladene Datei nochmal herunterzuladen und zu überprüfen."
-                } Else {
-
-                    # Upload failed!
-                    Write-Error "Upload fehlgeschlagen!"
                 }
 
                 Break
