@@ -377,14 +377,18 @@ on
                 -ContentType "multipart/form-data; boundary=$Boundary" `
                 -Body $Body
         } Else {
-            $ErrorType = "InvalidOperation"
-            $HttpRequestException = New-Object "System.${ErrorType}Exception" @"
-Aus dem Dateinamen der Datei, die hochgeladen werden soll, folgt die Übungsnummer $ExerciseNumber.
-Diese kann aktuell nicht hochgeladen werden.
-Für den Upload freigegeben ist "$(($Form.Fields.GetEnumerator() | Select-Object -Expand "Key")[1])".
-"@
-            $ErrorObject = New-Object System.Management.Automation.ErrorRecord @($HttpRequestException, "ExerciseNumberError", $ErrorType, $MyInvocation.MyCommand)
-            $PSCmdlet.WriteError($ErrorObject)
+            Write-ErrorRecord `
+                -Exception "InvalidOperationException" `
+                -ErrorId "ExerciseNumberError" `
+                -ErrorCategory "InvalidOperation" `
+                -TargetObject $Form `
+                -Message (
+                -join (
+                    "Aus dem Dateinamen der Datei, die hochgeladen werden soll, folgt die Übungsnummer $ExerciseNumber. ",
+                    "Diese kann aktuell nicht hochgeladen werden. ",
+                    "Für den Upload freigegeben ist `"$(($Form.Fields.GetEnumerator() | Select-Object -Expand "Key")[1])`"."
+                )
+            )
         }
     }
 }
