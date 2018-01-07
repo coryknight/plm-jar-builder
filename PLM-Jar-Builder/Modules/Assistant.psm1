@@ -287,7 +287,7 @@ Wahl
                         $ExerciseNumber = [Int[]](Read-ValidInput `
                                 -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
-                                {$args[0] -Match "^(\d{1,2}, )*\d{1,2}$"}
+                                {$args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$"}
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format!"
@@ -520,7 +520,7 @@ Wahl
                         $ExerciseNumber = [Int[]](Read-ValidInput `
                                 -Prompt "Kommagetrennte Aufgabennummern" `
                                 -ValidityCheck @(
-                                {$args[0] -Match "^(\d{1,2}, )*\d{1,2}$"}
+                                {$args[0].Split(",").Trim() -Match "^(\d{1,2}, )*\d{1,2}$"}
                             ) `
                                 -ErrorMessage @(
                                 "Ungültiges Format!"
