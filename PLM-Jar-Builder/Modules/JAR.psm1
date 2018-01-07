@@ -128,7 +128,19 @@ Function Get-ExerciseFolder {
     # Return (filtered) path(s) or null
     If ($ExercisePath) {
         If ($Newest) {
-            Return $ExercisePath[$ExercisePath.Length - 1]
+            $BiggestNumber = 0
+            $BiggestNumberIndex = 0
+            
+            For ($I = 0; $I -Lt $ExercisePath.Length; $I++) {
+                $CurrentNumber = [Int] $ExerciseSheetRegex.Match($ExercisePath[$I]).Groups[1].Value
+        
+                If ($CurrentNumber -Gt $BiggestNumber) {
+                    $BiggestNumber = $CurrentNumber
+                    $BiggestNumberIndex = $I
+                }
+            }
+
+            Return $ExercisePath[$BiggestNumberIndex]
         } Else {
             Return $ExercisePath
         }
