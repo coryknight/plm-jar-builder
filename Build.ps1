@@ -26,7 +26,8 @@ Function Install-Dependencies {
     Write-Host "Installing dependencies..." -ForegroundColor "Cyan"
 
     If (-Not (Get-Module -Name "PSDepend" -ListAvailable)) {
-        Install-Module -Name "PSDepend" -Scope "CurrentUser" -Force
+        # Required version needed until https://github.com/appveyor/ci/issues/2013 gets solved
+        Install-Module -Name "PSDepend" -RequiredVersion "0.1.56" -Scope "CurrentUser" -Force
     }
 
     Invoke-PSDepend -Path $RequirementsPath -Force
