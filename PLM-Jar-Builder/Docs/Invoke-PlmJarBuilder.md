@@ -21,7 +21,7 @@ The "Invoke-PlmJarBuilder" cmdlet leads through the execution of possible PLM-Ja
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 Invoke-PlmJarBuilder
 ```
@@ -34,7 +34,7 @@ Whether to disable dependency resolution.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -49,7 +49,7 @@ Whether to disable update checks.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -64,7 +64,7 @@ Whether to disable update checks and dependency resolution.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

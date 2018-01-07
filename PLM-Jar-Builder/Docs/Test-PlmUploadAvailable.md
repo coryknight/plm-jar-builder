@@ -14,12 +14,12 @@ Tests the availability of PLM-Jar uploads.
 
 ### Session (Default)
 ```
-Test-PlmUploadAvailable [-Session] <WebRequestSession>
+Test-PlmUploadAvailable [-Session] <WebRequestSession> [<CommonParameters>]
 ```
 
 ### Request
 ```
-Test-PlmUploadAvailable [-Request] <HtmlWebResponseObject>
+Test-PlmUploadAvailable [-Request] <HtmlWebResponseObject> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +28,7 @@ If they are $False is returned, otherwise $True.
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 $UploadUri = Get-PlmUri -Type "Upload"
 ```
@@ -49,7 +49,7 @@ A web session to the PLM website.
 ```yaml
 Type: WebRequestSession
 Parameter Sets: Session
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -64,7 +64,7 @@ A web request to PLM's upload site.
 ```yaml
 Type: HtmlWebResponseObject
 Parameter Sets: Request
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -72,6 +72,10 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

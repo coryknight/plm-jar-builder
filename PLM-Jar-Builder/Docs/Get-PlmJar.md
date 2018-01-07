@@ -15,24 +15,25 @@ Downloads a PLM-Jar from the PLM webservice.
 ### Newest (Default)
 ```
 Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString>
- [-DownloadPath <String>]
+ [-DownloadPath <String>] [<CommonParameters>]
 ```
 
 ### All
 ```
 Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString>
- [-DownloadPath <String>] [-All]
+ [-DownloadPath <String>] [-All] [<CommonParameters>]
 ```
 
 ### ExerciseNumber
 ```
 Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString>
- [-DownloadPath <String>] [-ExerciseNumber <Int32[]>]
+ [-DownloadPath <String>] [-ExerciseNumber <Int32[]>] [<CommonParameters>]
 ```
 
 ### ListAvailable
 ```
 Get-PlmJar -Session <WebRequestSession> -UserUsername <String> -UserPassword <SecureString> [-ListAvailable]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +42,7 @@ It either returns all available download options or downloads the specified arch
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 $UserUsername = "123456789"
 ```
@@ -60,7 +61,7 @@ A web session to the PLM website.
 ```yaml
 Type: WebRequestSession
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -75,7 +76,7 @@ The user's username authenticate for download permissions.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -90,7 +91,7 @@ The user's password authenticate for download permissions.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -105,7 +106,7 @@ The path to which the jar files are to be downloaded to.
 ```yaml
 Type: String
 Parameter Sets: Newest, All, ExerciseNumber
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -120,7 +121,7 @@ The exercise numbers for which jar files are to be downloaded.
 ```yaml
 Type: Int32[]
 Parameter Sets: ExerciseNumber
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -135,7 +136,7 @@ Whether to download all available jar files.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: All
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -150,7 +151,7 @@ Whether to list all available download options.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: ListAvailable
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -158,6 +159,10 @@ Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

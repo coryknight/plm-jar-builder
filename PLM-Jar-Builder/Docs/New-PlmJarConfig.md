@@ -24,7 +24,7 @@ The "New-PlmJarConfig" cmdlet creates a new PLM-Jar-Builder configuration file c
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 New-PlmJarConfig
 ```
@@ -37,7 +37,7 @@ The path to the directory that contains the exercise folders.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -52,7 +52,7 @@ The path to download jar files to.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 2
@@ -67,7 +67,7 @@ A list of file extensions to exclude when packing the jar.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 3
@@ -82,7 +82,7 @@ Whether to exclude a note regarding this tool in the jar.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -97,7 +97,7 @@ The username for PLM's basic authentication.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 4
@@ -112,7 +112,7 @@ The password for PLM's basic authentication.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 5
@@ -127,7 +127,7 @@ The user's matriculation number / PLM username.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 6
@@ -142,7 +142,7 @@ The user's PLM password.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 7
@@ -157,7 +157,7 @@ The relative path from an exercise folder to its solution folder.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 8
@@ -172,7 +172,7 @@ The regular expression that is used when looking for exercise folders.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 9
@@ -187,7 +187,7 @@ The regular expression that is used when looking for jar files.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 10

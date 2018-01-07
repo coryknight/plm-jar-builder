@@ -13,7 +13,7 @@ Gets a PLM-Jar-Builder configuration property path.
 ## SYNTAX
 
 ```
-Get-PlmJarBuilderConfigPropertyPath [-PropertyName] <Object>
+Get-PlmJarBuilderConfigPropertyPath [-PropertyName] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -21,7 +21,7 @@ The "Get-PlmJarBuilderConfigPropertyPath" cmdlet returns property name's PLM-Jar
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 Get-PlmJarBuilderConfigPropertyPath -PropertyName "ExerciseRootPath"
 ```
@@ -34,7 +34,7 @@ The property name of the property path that is to be returned.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -42,6 +42,10 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

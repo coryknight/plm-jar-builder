@@ -21,7 +21,7 @@ The "Get-PlmJarBuilderConfig" cmdlet returns the PLM-Jar-Builder configuration f
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 Get-PlmJarBuilderConfig
 ```

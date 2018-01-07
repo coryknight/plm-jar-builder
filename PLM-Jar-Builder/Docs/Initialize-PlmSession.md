@@ -14,7 +14,7 @@ Initializes a PLM session.
 
 ```
 Initialize-PlmSession [-PlmUsername] <String> [-PlmPassword] <SecureString> [-UserUsername] <String>
- [-UserPassword] <SecureString>
+ [-UserPassword] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,7 +24,7 @@ The user should be logged in then, otherwise an error is thrown.
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 Initialize-PlmSession -PlmUsername "PLM" -UserUsername 123456789
 ```
@@ -37,7 +37,7 @@ The username for PLM's basic authentication.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -52,7 +52,7 @@ The password for PLM's basic authentication.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 2
@@ -67,7 +67,7 @@ The user's username authenticate for download permissions.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 3
@@ -82,7 +82,7 @@ The user's password authenticate for download permissions.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 4
@@ -90,6 +90,10 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

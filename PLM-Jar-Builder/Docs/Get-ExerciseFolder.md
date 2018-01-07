@@ -14,17 +14,17 @@ Gets exercise folders.
 
 ### All (Default)
 ```
-Get-ExerciseFolder [-ExerciseRootPath] <String>
+Get-ExerciseFolder [-ExerciseRootPath] <String> [<CommonParameters>]
 ```
 
 ### Newest
 ```
-Get-ExerciseFolder [[-ExerciseRootPath] <String>] [-Newest]
+Get-ExerciseFolder [[-ExerciseRootPath] <String>] [-Newest] [<CommonParameters>]
 ```
 
 ### ExerciseNumber
 ```
-Get-ExerciseFolder [[-ExerciseRootPath] <String>] [-ExerciseNumber] <Int32[]>
+Get-ExerciseFolder [[-ExerciseRootPath] <String>] [-ExerciseNumber] <Int32[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,7 +32,7 @@ The "Get-ExerciseFolder" cmdlet searches an exercise root path for folders match
 
 ## EXAMPLES
 
-### -------------------------- BEISPIEL 1 --------------------------
+### BEISPIEL 1
 ```
 Get-ExerciseFolder -ExerciseRootPath "D:\Dokumente\Universität\Informatik\Semester 1\Einführung in die Programmierung\Übungen"
 ```
@@ -49,7 +49,7 @@ The path to the directory that contains the exercise folders.
 ```yaml
 Type: String
 Parameter Sets: All
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```yaml
 Type: String
 Parameter Sets: Newest, ExerciseNumber
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -76,7 +76,7 @@ The exercise numbers for which folders are to be found.
 ```yaml
 Type: Int32[]
 Parameter Sets: ExerciseNumber
-Aliases: 
+Aliases:
 
 Required: True
 Position: 2
@@ -91,7 +91,7 @@ Whether to return only the exercise folder with the highest exercise number.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Newest
-Aliases: 
+Aliases:
 
 Required: True
 Position: 2
@@ -99,6 +99,10 @@ Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
