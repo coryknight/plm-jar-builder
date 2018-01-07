@@ -205,7 +205,7 @@ Function New-PlmJar {
         [Switch] $NoNote,
 
         [ValidateNotNull()]
-        [String[]] $Exclude = @("*.class", "*.eml", "*.iml", "*.jar", "*.odt", "*.odg", "*.old", ".idea", "In.java", "out", "Out.java"),
+        [String[]] $Exclude = @(".*\.class", ".*\.eml", ".*\.iml", ".*\.jar", ".*\.odt", ".*\.odg", ".*\.old", "[^\\]+\\\.idea\\.*", ".*\\In\.java", "[^\\]+\\out\\.*", ".*\\Out\.java"),
 
         [ValidateNotNullOrEmpty()]
         [Int] $MatriculationNumber
@@ -244,9 +244,17 @@ Function New-PlmJar {
         }
 
         $Files = @(
-            Get-ChildItem -Path "$SolutionPathAbsolute" -Exclude:$Exclude -Recurse -File |
+            Get-ChildItem -Path "$SolutionPathAbsolute" -Recurse -File |
                 Where-Object {
-                $Exclude -NotContains $PSItem.Directory.Name
+                $FullNameDiff = $PSItem.FullName.TrimStart($SolutionPathAbsolute)
+  
+                For ($I = 0; $I -Lt $Exclude.Count; $I++) {
+                    If ($PSItem.FullName -Match $Exclude[$I]) {
+                        Return $False
+                    }
+                }
+                    
+                Return $True
             }
         )
 

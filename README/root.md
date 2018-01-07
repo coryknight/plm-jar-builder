@@ -98,8 +98,8 @@ Der Pfad zum Ordner, in den .jar-Dateien heruntergeladen werden.
 Standardwert: `%Downloads%` (Registry-Schlüssel)
 
 - **Exclude**  
-Dateiendungen, die nicht in die .jar-Datei gepackt werden sollen.  
-Standardwert: `"*.class", "*.eml", "*.iml", "*.jar", "*.odt", "*.odg", "*.old", ".idea", "In.java", "out", "Out.java"`
+Dateiendungen als Regex, die nicht in die .jar-Datei gepackt werden sollen.  
+Standardwert: `".*\.class", ".*\.eml", ".*\.iml", ".*\.jar", ".*\.odt", ".*\.odg", ".*\.old", "[^\\]+\\\.idea\\.*", ".*\\In\.java", "[^\\]+\\out\\.*", ".*\\Out\.java"`
 
 - **NoNote**  
 Festlegen, ob eine Markdown-Notiz bezüglich dieses Moduls mit in die .jar-Datei gepackt werden soll.  

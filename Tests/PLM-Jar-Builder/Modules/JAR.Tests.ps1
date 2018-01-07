@@ -71,7 +71,7 @@ Describe "Get-ExerciseFolder" {
         It "returns an the newest exercise folder" {
             # Parameters: "ExerciseRootPath"
             $ExerciseFolder = Get-ExerciseFolder -ExerciseRootPath $CorrectExerciseRootPath -Newest
-            $ExerciseFolder | Should Be @("Aufgabenblatt 2")
+            $ExerciseFolder | Should Be @("Aufgabenblatt 10")
         }
     }
 
